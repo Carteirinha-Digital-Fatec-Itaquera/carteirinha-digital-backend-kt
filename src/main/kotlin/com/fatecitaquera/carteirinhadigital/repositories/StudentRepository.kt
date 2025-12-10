@@ -7,4 +7,7 @@ import java.util.Optional
 interface StudentRepository: JpaRepository<StudentEntity, String> {
 
     fun findByRa(ra: String): Optional<StudentEntity>
+
+    fun findByEmail(email: String): Optional<StudentEntity>
+
 }

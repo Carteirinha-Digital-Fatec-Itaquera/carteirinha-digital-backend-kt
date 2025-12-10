@@ -1,12 +1,13 @@
 package com.fatecitaquera.carteirinhadigital.controllers
 
 import com.fatecitaquera.carteirinhadigital.exceptions.ResourceNotFoundException
-import com.fatecitaquera.carteirinhadigital.exceptions.enums.ErrorRuntimeEnum
+import com.fatecitaquera.carteirinhadigital.exceptions.enums.RuntimeErrorEnum
 import com.fatecitaquera.carteirinhadigital.dto.ErrorFieldDTO
 import com.fatecitaquera.carteirinhadigital.dto.ErrorMessageDTO
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -28,7 +29,7 @@ class ExceptionHandlerController {
             )
         }
 
-        val enum: ErrorRuntimeEnum = ErrorRuntimeEnum.ERR002
+        val enum: RuntimeErrorEnum = RuntimeErrorEnum.ERR0002
         val status: HttpStatus = HttpStatus.BAD_REQUEST
         val error = ErrorMessageDTO(
             code = enum.code,
@@ -45,8 +46,22 @@ class ExceptionHandlerController {
     fun resourceNotFound(
         exception: ResourceNotFoundException, request: HttpServletRequest
     ): ResponseEntity<ErrorMessageDTO> {
-        val enum: ErrorRuntimeEnum = exception.error
+        val enum: RuntimeErrorEnum = exception.error
         val status: HttpStatus = HttpStatus.NOT_FOUND
+        val error = ErrorMessageDTO(
+            code = enum.code,
+            status = status.value(),
+            message = enum.description,
+            timestamp = Instant.now(),
+            path = request.requestURI
+        )
+        return ResponseEntity.status(status).body(error)
+    }
+
+    @ExceptionHandler(BadCredentialsException::class)
+    fun badCredentials(request: HttpServletRequest): ResponseEntity<ErrorMessageDTO> {
+        val enum: RuntimeErrorEnum = RuntimeErrorEnum.ERR0004
+        val status: HttpStatus = HttpStatus.FORBIDDEN
         val error = ErrorMessageDTO(
             code = enum.code,
             status = status.value(),
@@ -79,20 +94,6 @@ class ExceptionHandlerController {
 //    ): ResponseEntity<ErrorMessageDTO> {
 //        val enum: ErrorRuntimeEnum = exception.errorEnum
 //        val status: HttpStatus = HttpStatus.CONFLICT
-//        val error = ErrorMessageDTO(
-//            code = enum.code,
-//            status = status.value(),
-//            message = enum.message,
-//            timestamp = Instant.now(),
-//            path = request.requestURI
-//        )
-//        return ResponseEntity.status(status).body(error)
-//    }
-//
-//    @ExceptionHandler(BadCredentialsException::class)
-//    fun badCredentials(request: HttpServletRequest): ResponseEntity<ErrorMessageDTO> {
-//        val enum: ErrorRuntimeEnum = ErrorRuntimeEnum.ERR0019
-//        val status: HttpStatus = HttpStatus.FORBIDDEN
 //        val error = ErrorMessageDTO(
 //            code = enum.code,
 //            status = status.value(),

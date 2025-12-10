@@ -1,4 +1,4 @@
-package com.fatecitaquera.carteirinhadigital.dto
+package com.fatecitaquera.carteirinhadigital.dto.student
 
 import java.time.LocalDate
 

@@ -1,9 +1,8 @@
 package com.fatecitaquera.carteirinhadigital.services
 
 import com.fatecitaquera.carteirinhadigital.domains.StudentDomain
-import com.fatecitaquera.carteirinhadigital.entities.StudentEntity
 import com.fatecitaquera.carteirinhadigital.exceptions.ResourceNotFoundException
-import com.fatecitaquera.carteirinhadigital.exceptions.enums.ErrorRuntimeEnum
+import com.fatecitaquera.carteirinhadigital.exceptions.enums.RuntimeErrorEnum
 import com.fatecitaquera.carteirinhadigital.mappers.StudentMapper
 import com.fatecitaquera.carteirinhadigital.repositories.StudentRepository
 import org.springframework.stereotype.Service
@@ -19,7 +18,7 @@ class StudentService(
 
     fun findByRa(ra: String): StudentDomain =
         mapper.toDomain(repository.findByRa(ra).orElseThrow {
-            ResourceNotFoundException(ErrorRuntimeEnum.ERR001)
+            ResourceNotFoundException(RuntimeErrorEnum.ERR0001)
         })
 
     fun create(student: StudentDomain) {

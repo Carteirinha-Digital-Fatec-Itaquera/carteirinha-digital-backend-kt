@@ -1,11 +1,9 @@
 package com.fatecitaquera.carteirinhadigital.mappers
 
-import com.fatecitaquera.carteirinhadigital.domains.SecretaryDomain
 import com.fatecitaquera.carteirinhadigital.domains.StudentDomain
 import com.fatecitaquera.carteirinhadigital.domains.UserDomain
-import com.fatecitaquera.carteirinhadigital.dto.CreateStudentDTO
-import com.fatecitaquera.carteirinhadigital.dto.ViewStudentDTO
-import com.fatecitaquera.carteirinhadigital.entities.SecretaryEntity
+import com.fatecitaquera.carteirinhadigital.dto.student.CreateStudentDTO
+import com.fatecitaquera.carteirinhadigital.dto.student.ViewStudentDTO
 import com.fatecitaquera.carteirinhadigital.entities.StudentEntity
 import org.springframework.stereotype.Component
 

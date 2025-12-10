@@ -1,4 +1,4 @@
-package com.fatecitaquera.carteirinhadigital.dto
+package com.fatecitaquera.carteirinhadigital.dto.secretary
 
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank

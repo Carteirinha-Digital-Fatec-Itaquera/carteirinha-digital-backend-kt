@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 import java.util.Optional
 
 interface SecretaryRepository: JpaRepository<SecretaryEntity, String> {
-    fun findByEmail(email: String): Optional<StudentEntity>
+    fun findByEmail(email: String): Optional<SecretaryEntity>
 }

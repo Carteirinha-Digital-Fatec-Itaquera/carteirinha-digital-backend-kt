@@ -2,12 +2,13 @@ package com.fatecitaquera.carteirinhadigital.mappers
 
 import com.fatecitaquera.carteirinhadigital.domains.SecretaryDomain
 import com.fatecitaquera.carteirinhadigital.domains.UserDomain
-import com.fatecitaquera.carteirinhadigital.dto.CreateSecretaryDTO
+import com.fatecitaquera.carteirinhadigital.dto.secretary.CreateSecretaryDTO
 import com.fatecitaquera.carteirinhadigital.entities.SecretaryEntity
 import org.springframework.stereotype.Component
 
 @Component
 class SecretaryMapper {
+
     fun toEntity(secretary: CreateSecretaryDTO): SecretaryEntity =
         SecretaryEntity(
             name = secretary.name,

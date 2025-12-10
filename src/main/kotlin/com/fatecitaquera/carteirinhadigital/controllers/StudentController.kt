@@ -1,7 +1,7 @@
 package com.fatecitaquera.carteirinhadigital.controllers
 
-import com.fatecitaquera.carteirinhadigital.dto.CreateStudentDTO
-import com.fatecitaquera.carteirinhadigital.dto.ViewStudentDTO
+import com.fatecitaquera.carteirinhadigital.dto.student.CreateStudentDTO
+import com.fatecitaquera.carteirinhadigital.dto.student.ViewStudentDTO
 import com.fatecitaquera.carteirinhadigital.mappers.StudentMapper
 import com.fatecitaquera.carteirinhadigital.services.StudentService
 import org.springframework.web.bind.annotation.GetMapping
