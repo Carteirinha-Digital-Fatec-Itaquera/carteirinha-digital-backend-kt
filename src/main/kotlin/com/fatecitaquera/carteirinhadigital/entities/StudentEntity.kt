@@ -1,5 +1,6 @@
 package com.fatecitaquera.carteirinhadigital.entities
 
+import com.fatecitaquera.carteirinhadigital.domains.enums.UserRoleEnum
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
@@ -10,43 +11,46 @@ import java.time.LocalDate
 @Table(name = "tb_estudante")
 class StudentEntity(
     @Id
-    var ra: String,
+    val ra: String,
 
     @Column(name = "curso", nullable = false)
-    var course: String,
+    val course: String,
 
     @Column(name = "periodo", nullable = false)
-    var period: String,
+    val period: String,
 
     @Column(nullable = false)
-    var status: String,
+    val status: String,
 
     @Column(name = "nome_completo", nullable = false)
-    var name: String,
+    val name: String,
 
     @Column(name = "ingresso", nullable = false)
-    var admission: String,
+    val admission: String,
 
     @Column(unique = true, nullable = false)
-    var email: String,
+    val email: String,
 
     @Column(unique = true, nullable = false)
-    var cpf: String,
+    val cpf: String,
 
     @Column(unique = true, nullable = false)
-    var rg: String,
+    val rg: String,
 
-    var qrcode: String?,
+    val qrcode: String?,
 
     @Column(name = "imagem")
-    var photo: String?,
+    val photo: String?,
 
     @Column(name = "data_nascimento", nullable = false)
-    var birthDate: LocalDate,
+    val birthDate: LocalDate,
 
     @Column(name = "data_vencimento", nullable = false)
-    var dueDate: LocalDate,
+    val dueDate: LocalDate,
 
     @Column(name = "senha")
-    var password: String?
+    val password: String,
+
+    @Column(name = "papel", nullable = false)
+    val role: UserRoleEnum = UserRoleEnum.STUDENT
 )

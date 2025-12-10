@@ -45,5 +45,5 @@ data class CreateStudentDTO(
     val birthDate: LocalDate,
 
     @field:NotNull(message = "O campo data de vencimento é obrigatório")
-    val dueDate: LocalDate,
+    val dueDate: LocalDate
 )

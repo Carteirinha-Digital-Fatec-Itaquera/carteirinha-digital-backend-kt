@@ -1,4 +1,4 @@
-package com.imobly.imobly.controllers.exceptionhandler.dtos
+package com.fatecitaquera.carteirinhadigital.dto
 
 data class ErrorFieldDTO(
     val name: String,

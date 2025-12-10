@@ -1,4 +1,4 @@
-package com.imobly.imobly.controllers.exceptionhandler.dtos
+package com.fatecitaquera.carteirinhadigital.dto
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import java.time.Instant

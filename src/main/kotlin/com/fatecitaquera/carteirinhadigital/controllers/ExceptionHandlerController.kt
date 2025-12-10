@@ -2,12 +2,11 @@ package com.fatecitaquera.carteirinhadigital.controllers
 
 import com.fatecitaquera.carteirinhadigital.exceptions.ResourceNotFoundException
 import com.fatecitaquera.carteirinhadigital.exceptions.enums.ErrorRuntimeEnum
-import com.imobly.imobly.controllers.exceptionhandler.dtos.ErrorFieldDTO
-import com.imobly.imobly.controllers.exceptionhandler.dtos.ErrorMessageDTO
+import com.fatecitaquera.carteirinhadigital.dto.ErrorFieldDTO
+import com.fatecitaquera.carteirinhadigital.dto.ErrorMessageDTO
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
