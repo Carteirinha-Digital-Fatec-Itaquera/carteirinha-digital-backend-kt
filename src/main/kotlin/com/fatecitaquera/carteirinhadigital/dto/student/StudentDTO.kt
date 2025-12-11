@@ -3,7 +3,7 @@ package com.fatecitaquera.carteirinhadigital.dto.student
 import jakarta.validation.constraints.*
 import java.time.LocalDate
 
-data class CreateStudentDTO(
+data class StudentDTO(
 
     @field:NotBlank(message = "O campo RA é obrigatório")
     val ra: String,

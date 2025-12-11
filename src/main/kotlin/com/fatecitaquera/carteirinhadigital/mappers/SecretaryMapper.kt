@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 @Component
 class SecretaryMapper {
 
-    fun toEntity(secretary: CreateSecretaryDTO): SecretaryEntity =
+    fun toEntity(secretary: SecretaryDomain): SecretaryEntity =
         SecretaryEntity(
             name = secretary.name,
             email = secretary.email,
@@ -23,6 +23,13 @@ class SecretaryMapper {
             email = secretary.email,
             password = secretary.password,
             role = secretary.role
+        )
+
+    fun toDomain(secretary: CreateSecretaryDTO): SecretaryDomain =
+        SecretaryDomain(
+            name = secretary.name,
+            email = secretary.email,
+            password = secretary.password
         )
 
     fun toUserDomain(secretary: SecretaryEntity): UserDomain =

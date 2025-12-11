@@ -4,6 +4,10 @@ import com.fatecitaquera.carteirinhadigital.exceptions.ResourceNotFoundException
 import com.fatecitaquera.carteirinhadigital.exceptions.enums.RuntimeErrorEnum
 import com.fatecitaquera.carteirinhadigital.dto.ErrorFieldDTO
 import com.fatecitaquera.carteirinhadigital.dto.ErrorMessageDTO
+import com.fatecitaquera.carteirinhadigital.exceptions.AuthenticationFailedException
+import com.fatecitaquera.carteirinhadigital.exceptions.DuplicateResourceException
+import com.fatecitaquera.carteirinhadigital.exceptions.InternalErrorException
+import com.fatecitaquera.carteirinhadigital.exceptions.OperationNotAllowedException
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -72,54 +76,69 @@ class ExceptionHandlerController {
         return ResponseEntity.status(status).body(error)
     }
 
-//    @ExceptionHandler(OperationNotAllowedException::class)
-//    fun operationNotAllowed(
-//        exception: OperationNotAllowedException, request: HttpServletRequest
-//    ): ResponseEntity<ErrorMessageDTO> {
-//        val enum: ErrorRuntimeEnum = exception.errorEnum
-//        val status: HttpStatus = HttpStatus.CONFLICT
-//        val error = ErrorMessageDTO(
-//            code = enum.code,
-//            status = status.value(),
-//            message = enum.message,
-//            timestamp = Instant.now(),
-//            path = request.requestURI
-//        )
-//        return ResponseEntity.status(status).body(error)
-//    }
-//
-//    @ExceptionHandler(DuplicateResourceException::class)
-//    fun duplicateResource(
-//        exception: DuplicateResourceException, request: HttpServletRequest
-//    ): ResponseEntity<ErrorMessageDTO> {
-//        val enum: ErrorRuntimeEnum = exception.errorEnum
-//        val status: HttpStatus = HttpStatus.CONFLICT
-//        val error = ErrorMessageDTO(
-//            code = enum.code,
-//            status = status.value(),
-//            message = enum.message,
-//            timestamp = Instant.now(),
-//            path = request.requestURI
-//        )
-//        return ResponseEntity.status(status).body(error)
-//    }
-//
-//    @ExceptionHandler(InternalErrorException::class)
-//    fun internalError(
-//        exception: InternalErrorException, request: HttpServletRequest
-//    ): ResponseEntity<ErrorMessageDTO> {
-//        val enum: ErrorRuntimeEnum = exception.errorEnum
-//        val status: HttpStatus = HttpStatus.INTERNAL_SERVER_ERROR
-//        val error = ErrorMessageDTO(
-//            code = enum.code,
-//            status = status.value(),
-//            message = enum.message,
-//            timestamp = Instant.now(),
-//            path = request.requestURI
-//        )
-//        return ResponseEntity.status(status).body(error)
-//    }
-//
+    @ExceptionHandler(OperationNotAllowedException::class)
+    fun operationNotAllowed(
+        exception: OperationNotAllowedException, request: HttpServletRequest
+    ): ResponseEntity<ErrorMessageDTO> {
+        val enum: RuntimeErrorEnum = exception.error
+        val status: HttpStatus = HttpStatus.CONFLICT
+        val error = ErrorMessageDTO(
+            code = enum.code,
+            status = status.value(),
+            message = enum.description,
+            timestamp = Instant.now(),
+            path = request.requestURI
+        )
+        return ResponseEntity.status(status).body(error)
+    }
+
+    @ExceptionHandler(DuplicateResourceException::class)
+    fun duplicateResource(
+        exception: DuplicateResourceException, request: HttpServletRequest
+    ): ResponseEntity<ErrorMessageDTO> {
+        val enum: RuntimeErrorEnum = exception.error
+        val status: HttpStatus = HttpStatus.CONFLICT
+        val error = ErrorMessageDTO(
+            code = enum.code,
+            status = status.value(),
+            message = enum.description,
+            timestamp = Instant.now(),
+            path = request.requestURI
+        )
+        return ResponseEntity.status(status).body(error)
+    }
+
+    @ExceptionHandler(InternalErrorException::class)
+    fun internalError(
+        exception: InternalErrorException, request: HttpServletRequest
+    ): ResponseEntity<ErrorMessageDTO> {
+        val enum: RuntimeErrorEnum = exception.error
+        val status: HttpStatus = HttpStatus.INTERNAL_SERVER_ERROR
+        val error = ErrorMessageDTO(
+            code = enum.code,
+            status = status.value(),
+            message = enum.description,
+            timestamp = Instant.now(),
+            path = request.requestURI
+        )
+        return ResponseEntity.status(status).body(error)
+    }
+
+    @ExceptionHandler(AuthenticationFailedException::class)
+    fun authenticationFailed(
+        exception: AuthenticationFailedException, request: HttpServletRequest
+    ): ResponseEntity<ErrorMessageDTO> {
+        val enum: RuntimeErrorEnum = exception.error
+        val status: HttpStatus = HttpStatus.UNAUTHORIZED
+        val error = ErrorMessageDTO(
+            code = enum.code,
+            status = status.value(),
+            message = enum.description,
+            timestamp = Instant.now(),
+            path = request.requestURI
+        )
+        return ResponseEntity.status(status).body(error)
+    }
 //    @ExceptionHandler(UnsupportedMediaTypeException::class)
 //    fun unsupportedMediaType(
 //        exception: UnsupportedMediaTypeException, request: HttpServletRequest
@@ -152,19 +171,4 @@ class ExceptionHandlerController {
 //        return ResponseEntity.status(status).body(error)
 //    }
 //
-//    @ExceptionHandler(AuthenticationFailedException::class)
-//    fun authenticationFailed(
-//        exception: AuthenticationFailedException, request: HttpServletRequest
-//    ): ResponseEntity<ErrorMessageDTO> {
-//        val enum: ErrorRuntimeEnum = exception.errorEnum
-//        val status: HttpStatus = HttpStatus.FORBIDDEN
-//        val error = ErrorMessageDTO(
-//            code = enum.code,
-//            status = status.value(),
-//            message = enum.message,
-//            timestamp = Instant.now(),
-//            path = request.requestURI
-//        )
-//        return ResponseEntity.status(status).body(error)
-//    }
 }

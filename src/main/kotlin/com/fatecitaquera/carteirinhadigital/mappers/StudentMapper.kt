@@ -2,7 +2,7 @@ package com.fatecitaquera.carteirinhadigital.mappers
 
 import com.fatecitaquera.carteirinhadigital.domains.StudentDomain
 import com.fatecitaquera.carteirinhadigital.domains.UserDomain
-import com.fatecitaquera.carteirinhadigital.dto.student.CreateStudentDTO
+import com.fatecitaquera.carteirinhadigital.dto.student.StudentDTO
 import com.fatecitaquera.carteirinhadigital.dto.student.ViewStudentDTO
 import com.fatecitaquera.carteirinhadigital.entities.StudentEntity
 import org.springframework.stereotype.Component
@@ -28,7 +28,7 @@ class StudentMapper {
             password = ""
         )
 
-    fun toDomain(student: CreateStudentDTO): StudentDomain =
+    fun toDomain(student: StudentDTO): StudentDomain =
         StudentDomain(
             ra = student.ra,
             course = student.course,

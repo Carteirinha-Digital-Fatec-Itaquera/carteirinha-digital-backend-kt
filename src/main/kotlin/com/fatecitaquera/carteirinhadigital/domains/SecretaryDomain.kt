@@ -7,5 +7,5 @@ class SecretaryDomain(
     name: String,
     email: String,
     password: String,
-    role: UserRoleEnum
+    role: UserRoleEnum = UserRoleEnum.SECRETARY
 ): UserDomain(id, name, email, password, role)

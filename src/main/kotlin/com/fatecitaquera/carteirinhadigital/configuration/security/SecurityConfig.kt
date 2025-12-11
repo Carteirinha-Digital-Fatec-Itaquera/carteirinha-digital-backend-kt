@@ -39,30 +39,16 @@ class SecurityConfig(val jwtAuthFilter: JwtAuthFilter) {
                     .requestMatchers("/swagger-ui/**").permitAll()
                     .requestMatchers("/swagger-ui.html").permitAll()
 
-                    .requestMatchers("/locadores/**").hasRole("LAND_LORD")
+                    .requestMatchers("/secretaria/**").hasRole("SECRETARY")
 
-                    .requestMatchers("/graficos/**").hasRole("LAND_LORD")
+                    .requestMatchers(
+                        "/estudante/encontrar-todos",
+                        "/estudante/encontrar-por-ra",
+                        "/estudante/atualizar",
+                        "/estudante/deletar"
+                    ).hasRole("SECRETARY")
 
-                    .requestMatchers("/categorias/encontrartodos", "/categorias/encontrarporid/**").permitAll()
-                    .requestMatchers("/categorias/criar", "/categorias/atualizar/**", "/categorias/deletar/**").hasRole("LAND_LORD")
-
-                    .requestMatchers("/reportacoes/encontrarporperfil", "/reportacoes/criar").hasRole("TENANT")
-                    .requestMatchers("/reportacoes/encontrartodos", "/reportacoes/responderreportacao/**", "/reportacoes/atualizarstatus/**", "/reportacoes/deletar/**").hasRole("LAND_LORD")
-
-                    .requestMatchers("/propriedades/encontrartodos", "/propriedades/encontrarporid/**").permitAll()
-                    .requestMatchers("/propriedades/inserir", "/propriedades/atualizar/**", "/propriedades/deletar/**").hasRole("LAND_LORD")
-
-                    .requestMatchers("/locacoes/encontrartodos", "/locacoes/encontrarporid/**").hasRole("TENANT")
-                    .requestMatchers("/locacoes/inserir", "/locacoes/atualizar/**", "/locacoes/alternarativo/**").hasRole("LAND_LORD")
-
-                    .requestMatchers("/locatarios/encontrarperfil", "/locatarios/atualizarperfil", "/locatarios/deletarperfil").hasRole("TENANT")
-                    .requestMatchers("/locatarios/encontrartodos", "/locatarios/atualizar/**", "/locatarios/deletar/**").hasRole("LAND_LORD")
-
-                    .requestMatchers("/pagamentos/encontrarporlocacaoid/**").hasRole("TENANT")
-                    .requestMatchers("/pagamentos/atualizarstatus/**").hasRole("LAND_LORD")
-
-                    .requestMatchers("/agendamentos/criar").permitAll()
-                    .requestMatchers("/agendamentos/encontrartodos", "/agendamentos/deletar").hasRole("LAND_LORD")
+                    .requestMatchers("/estudante/buscar-carteirinha").hasRole("STUDENT")
 
                     .anyRequest().authenticated()
             }

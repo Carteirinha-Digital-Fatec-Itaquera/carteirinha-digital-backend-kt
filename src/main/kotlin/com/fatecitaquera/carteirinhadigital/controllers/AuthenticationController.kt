@@ -2,14 +2,10 @@ package com.fatecitaquera.carteirinhadigital.controllers
 
 import com.fatecitaquera.carteirinhadigital.domains.UserDomain
 import com.fatecitaquera.carteirinhadigital.domains.enums.UserRoleEnum
-import com.fatecitaquera.carteirinhadigital.mappers.SecretaryMapper
-import com.fatecitaquera.carteirinhadigital.mappers.StudentMapper
-import com.fatecitaquera.carteirinhadigital.repositories.SecretaryRepository
-import com.fatecitaquera.carteirinhadigital.repositories.StudentRepository
 import com.fatecitaquera.carteirinhadigital.services.security.TokenService
 import com.fatecitaquera.carteirinhadigital.services.security.UserDetailsService
 import com.imobly.imobly.controllers.authentication.dtos.AuthDTO
-import com.imobly.imobly.controllers.authentication.dtos.TokenDTO
+import com.fatecitaquera.carteirinhadigital.dto.TokenDTO
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager

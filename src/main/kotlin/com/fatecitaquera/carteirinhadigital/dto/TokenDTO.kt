@@ -1,3 +1,3 @@
-package com.imobly.imobly.controllers.authentication.dtos
+package com.fatecitaquera.carteirinhadigital.dto
 
 data class TokenDTO(val token: String)
