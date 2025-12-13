@@ -15,10 +15,10 @@ class SecretaryEntity(
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: String? = null,
 
-    @Column(name = "nome_completo", nullable = false)
+    @Column(name = "nome_completo", nullable = false, length = 50)
     val name: String,
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length = 100)
     val email: String,
 
     @Column(name = "senha", nullable = false)

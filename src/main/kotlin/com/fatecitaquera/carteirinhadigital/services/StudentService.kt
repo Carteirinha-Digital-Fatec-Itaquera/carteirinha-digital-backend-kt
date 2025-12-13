@@ -1,6 +1,8 @@
 package com.fatecitaquera.carteirinhadigital.services
 
 import com.fatecitaquera.carteirinhadigital.domains.StudentDomain
+import com.fatecitaquera.carteirinhadigital.exceptions.DuplicateResourceException
+import com.fatecitaquera.carteirinhadigital.exceptions.OperationNotAllowedException
 import com.fatecitaquera.carteirinhadigital.exceptions.ResourceNotFoundException
 import com.fatecitaquera.carteirinhadigital.exceptions.enums.RuntimeErrorEnum
 import com.fatecitaquera.carteirinhadigital.mappers.StudentMapper
@@ -26,6 +28,7 @@ class StudentService(
         })
 
     fun create(student: StudentDomain) {
+        checkUniqueFields(student)
         repository.save(mapper.toEntity(student))
     }
 
@@ -33,6 +36,8 @@ class StudentService(
         val studentToUpdate = mapper.toDomain(repository.findByRa(ra).orElseThrow {
             ResourceNotFoundException(RuntimeErrorEnum.ERR0001)
         })
+
+        checkUniqueFields(studentWithNewData, studentToUpdate.cpf, studentToUpdate.id ?: "")
 
         studentToUpdate.id = studentWithNewData.id
         studentToUpdate.name = studentWithNewData.name
@@ -55,5 +60,20 @@ class StudentService(
             ResourceNotFoundException(RuntimeErrorEnum.ERR0001)
         }
         repository.delete(studentToDelete)
+    }
+
+    private fun checkUniqueFields(student: StudentDomain, cpf: String = "", ra: String = "") {
+        if (repository.existsByRaAndCpfNot(student.id ?: "", cpf)) {
+            throw DuplicateResourceException(RuntimeErrorEnum.ERR0009)
+        }
+        if (repository.existsByEmailAndCpfNot(student.email, cpf)) {
+            throw DuplicateResourceException(RuntimeErrorEnum.ERR0010)
+        }
+        if (repository.existsByCpfAndRaNot(student.cpf, ra)) {
+            throw DuplicateResourceException(RuntimeErrorEnum.ERR0011)
+        }
+        if (repository.existsByRgAndCpfNot(student.rg, cpf)) {
+            throw DuplicateResourceException(RuntimeErrorEnum.ERR0012)
+        }
     }
 }

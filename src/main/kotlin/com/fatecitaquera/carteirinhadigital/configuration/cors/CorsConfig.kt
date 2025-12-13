@@ -1,4 +1,4 @@
-package com.imobly.imobly.configuration.cors
+package com.fatecitaquera.carteirinhadigital.configuration.cors
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -7,13 +7,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @Configuration
 class CorsConfig {
+
     @Bean
     fun corsConfigurer(): WebMvcConfigurer =
         object : WebMvcConfigurer {
             override fun addCorsMappings(registry: CorsRegistry) {
                 registry.addMapping("/**")
                     .allowedOrigins("*")
-                    .allowedMethods("GET", "POST", "PUT", "PATCH","DELETE")
+                    .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
+                    .allowedHeaders("*")
             }
         }
 }

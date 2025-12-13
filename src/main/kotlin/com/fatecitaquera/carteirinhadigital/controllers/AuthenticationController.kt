@@ -4,7 +4,7 @@ import com.fatecitaquera.carteirinhadigital.domains.UserDomain
 import com.fatecitaquera.carteirinhadigital.domains.enums.UserRoleEnum
 import com.fatecitaquera.carteirinhadigital.services.security.TokenService
 import com.fatecitaquera.carteirinhadigital.services.security.UserDetailsService
-import com.imobly.imobly.controllers.authentication.dtos.AuthDTO
+import com.fatecitaquera.carteirinhadigital.dto.AuthDTO
 import com.fatecitaquera.carteirinhadigital.dto.TokenDTO
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
@@ -22,7 +22,7 @@ class AuthenticationController(
 ) {
 
     @PostMapping("/estudante/logar")
-    fun signInTenant(@Valid @RequestBody auth: AuthDTO): ResponseEntity<TokenDTO> {
+    fun signInTenant(@RequestBody auth: AuthDTO): ResponseEntity<TokenDTO> {
         userDetailsService.role = UserRoleEnum.STUDENT
         val authenticate = authenticationManager.authenticate(
             UsernamePasswordAuthenticationToken(auth.email, auth.password)
@@ -32,7 +32,7 @@ class AuthenticationController(
     }
 
     @PostMapping("/secretaria/logar")
-    fun signInLandLord(@Valid @RequestBody auth: AuthDTO):  ResponseEntity<TokenDTO> {
+    fun signInLandLord(@RequestBody auth: AuthDTO):  ResponseEntity<TokenDTO> {
         userDetailsService.role = UserRoleEnum.SECRETARY
         val authenticate = authenticationManager.authenticate(
             UsernamePasswordAuthenticationToken(auth.email, auth.password)

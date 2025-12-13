@@ -21,7 +21,7 @@ class SecretaryMapper {
             id = secretary.id,
             name = secretary.name,
             email = secretary.email,
-            password = secretary.password,
+            passwd = secretary.password,
             role = secretary.role
         )
 
@@ -29,7 +29,7 @@ class SecretaryMapper {
         SecretaryDomain(
             name = secretary.name,
             email = secretary.email,
-            password = secretary.password
+            passwd = secretary.password
         )
 
     fun toUserDomain(secretary: SecretaryEntity): UserDomain =

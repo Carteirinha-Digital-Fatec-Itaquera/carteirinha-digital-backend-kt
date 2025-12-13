@@ -13,28 +13,28 @@ class StudentEntity(
     @Id
     val ra: String,
 
-    @Column(name = "curso", nullable = false)
+    @Column(name = "curso", nullable = false, length = 100)
     val course: String,
 
-    @Column(name = "periodo", nullable = false)
+    @Column(name = "periodo", nullable = false, length = 50)
     val period: String,
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     val status: String,
 
-    @Column(name = "nome_completo", nullable = false)
+    @Column(name = "nome_completo", nullable = false, length = 100)
     val name: String,
 
-    @Column(name = "ingresso", nullable = false)
+    @Column(name = "ingresso", nullable = false, length = 50)
     val admission: String,
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length = 100)
     val email: String,
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length = 14)
     val cpf: String,
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length = 12)
     val rg: String,
 
     val qrcode: String?,

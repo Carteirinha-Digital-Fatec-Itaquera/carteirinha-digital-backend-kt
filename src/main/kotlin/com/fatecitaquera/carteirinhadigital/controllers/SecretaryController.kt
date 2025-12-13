@@ -3,6 +3,7 @@ package com.fatecitaquera.carteirinhadigital.controllers
 import com.fatecitaquera.carteirinhadigital.dto.secretary.CreateSecretaryDTO
 import com.fatecitaquera.carteirinhadigital.mappers.SecretaryMapper
 import com.fatecitaquera.carteirinhadigital.services.SecretaryService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -17,7 +18,7 @@ class SecretaryController (
     val mapper: SecretaryMapper
 ) {
     @PostMapping("/criar")
-    fun create(@RequestBody student: CreateSecretaryDTO): ResponseEntity<Void> {
+    fun create(@Valid @RequestBody student: CreateSecretaryDTO): ResponseEntity<Void> {
         service.create(mapper.toDomain(student))
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
