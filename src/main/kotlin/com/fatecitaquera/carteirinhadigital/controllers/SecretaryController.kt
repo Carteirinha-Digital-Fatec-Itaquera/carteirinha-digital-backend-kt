@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/secretaria")
+@RequestMapping("/secretarias")
 class SecretaryController (
     val service: SecretaryService,
     val mapper: SecretaryMapper
 ) {
     @PostMapping("/criar")
-    fun create(@Valid @RequestBody student: CreateSecretaryDTO): ResponseEntity<Void> {
-        service.create(mapper.toDomain(student))
+    fun signup(@Valid @RequestBody student: CreateSecretaryDTO): ResponseEntity<Void> {
+        service.signup(mapper.toDomain(student))
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
 }

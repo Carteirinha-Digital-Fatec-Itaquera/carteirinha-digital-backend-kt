@@ -13,7 +13,7 @@ class SecretaryService(
     val repository: SecretaryRepository,
     val mapper: SecretaryMapper
 ) {
-    fun create(secretary: SecretaryDomain) {
+    fun signup(secretary: SecretaryDomain) {
         if (repository.findAll().isNotEmpty()) {
             throw OperationNotAllowedException(RuntimeErrorEnum.ERR0008)
         }

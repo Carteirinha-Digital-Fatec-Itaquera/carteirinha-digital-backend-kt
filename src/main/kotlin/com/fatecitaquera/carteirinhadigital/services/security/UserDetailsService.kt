@@ -31,7 +31,7 @@ class UserDetailsService(
                     user = studentMapper.toUserDomain(it)
                 },
                 {
-                    throw BadCredentialsException("Tenant E-mail not found")
+                    throw BadCredentialsException("Student E-mail not found")
                 }
             )
             return user
@@ -43,7 +43,7 @@ class UserDetailsService(
                 user = secretaryMapper.toUserDomain(it)
             },
             {
-                throw BadCredentialsException("Land Lord E-mail not found")
+                throw BadCredentialsException("Secretary E-mail not found")
             }
         )
         return user

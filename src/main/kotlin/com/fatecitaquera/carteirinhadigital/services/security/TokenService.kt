@@ -12,7 +12,7 @@ import java.util.Date
 import javax.crypto.spec.SecretKeySpec
 
 @Service
-class TokenService(@field:Value("\${jwt.secret}") private val secret: String = "") {
+class TokenService(@field:Value($$"${jwt.secret}") private val secret: String = "") {
     private val signingKey: SecretKeySpec
         get() {
             val keyBytes: ByteArray = Base64.getDecoder().decode(secret)
@@ -28,11 +28,16 @@ class TokenService(@field:Value("\${jwt.secret}") private val secret: String = "
             .signWith(signingKey)
             .compact()
 
-    fun extractToken(authHeader: String): String =
-            if (authHeader.contains("Bearer")) authHeader.substring(7)
-            else throw AuthenticationFailedException(RuntimeErrorEnum.ERR0003)
+    fun extractToken(authHeader: String): String {
+        if (!authHeader.startsWith("Bearer ")) {
+            throw AuthenticationFailedException(RuntimeErrorEnum.ERR0003)
+        }
+
+        return authHeader.substring(7)
+    }
 
     fun extractUsername(token: String): String = extractAllClaims(token).subject
+
     fun extractRole(token: String): String = extractAllClaims(token)["role"].toString()
 
     fun extractId(token: String): String = extractAllClaims(token)["id"].toString()

@@ -3,8 +3,8 @@ package com.fatecitaquera.carteirinhadigital.controllers.recoverypassword
 import com.fatecitaquera.carteirinhadigital.exceptions.OperationNotAllowedException
 import com.fatecitaquera.carteirinhadigital.exceptions.enums.RuntimeErrorEnum
 import com.fatecitaquera.carteirinhadigital.services.recoverypassword.StudentPasswordRecoveryService
-import com.imobly.imobly.controllers.passwordrecovery.dtos.EmailDTO
-import com.imobly.imobly.controllers.passwordrecovery.dtos.ResetPasswordDTO
+import com.fatecitaquera.carteirinhadigital.dto.EmailDTO
+import com.fatecitaquera.carteirinhadigital.dto.ResetPasswordDTO
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping

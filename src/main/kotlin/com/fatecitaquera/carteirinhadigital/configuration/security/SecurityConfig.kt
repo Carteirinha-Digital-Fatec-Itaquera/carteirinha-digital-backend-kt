@@ -24,7 +24,7 @@ class SecurityConfig(val jwtAuthFilter: JwtAuthFilter) {
         authenticationConfiguration.authenticationManager
 
     @Bean
-    fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
+    fun securityFilterChain(http: HttpSecurity, jwtAuthEntryPoint: JwtAuthEntryPoint): SecurityFilterChain {
         http
             .cors {  }
             .csrf {
@@ -32,6 +32,9 @@ class SecurityConfig(val jwtAuthFilter: JwtAuthFilter) {
             }
             .sessionManagement {
                 it.disable()
+            }
+            .exceptionHandling {
+                it.authenticationEntryPoint(jwtAuthEntryPoint)
             }
             .authorizeHttpRequests { auth ->
                 auth
@@ -43,13 +46,14 @@ class SecurityConfig(val jwtAuthFilter: JwtAuthFilter) {
                     .requestMatchers("/swagger-ui/**").permitAll()
                     .requestMatchers("/swagger-ui.html").permitAll()
 
-                    .requestMatchers("/secretaria/criar").permitAll()
+                    .requestMatchers("/secretarias/criar").permitAll()
 
                     .requestMatchers(
-                        "/estudante/encontrar-todos",
-                        "/estudante/encontrar-por-ra",
-                        "/estudante/atualizar",
-                        "/estudante/deletar"
+                        "/estudantes/encontrar-todos",
+                        "/estudantes/encontrar-por-ra",
+                        "/estudantes/criar",
+                        "/estudantes/atualizar",
+                        "/estudantes/deletar"
                     ).hasRole("SECRETARY")
 
                     .requestMatchers("/estudante/buscar-carteirinha").hasRole("STUDENT")

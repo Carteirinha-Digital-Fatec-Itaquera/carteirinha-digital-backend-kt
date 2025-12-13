@@ -6,6 +6,7 @@ import com.fatecitaquera.carteirinhadigital.dto.student.StudentDTO
 import com.fatecitaquera.carteirinhadigital.dto.student.ViewStudentDTO
 import com.fatecitaquera.carteirinhadigital.entities.StudentEntity
 import org.springframework.stereotype.Component
+import java.time.LocalDate
 
 @Component
 class StudentMapper {
@@ -30,17 +31,17 @@ class StudentMapper {
 
     fun toDomain(student: StudentDTO): StudentDomain =
         StudentDomain(
-            ra = student.ra,
-            course = student.course,
-            period = student.period,
-            status = student.status,
-            name = student.name,
-            admission = student.admission,
-            email = student.email,
-            cpf = student.cpf,
-            rg = student.rg,
-            birthDate = student.birthDate,
-            dueDate = student.dueDate,
+            ra = student.ra ?: "",
+            course = student.course ?: "",
+            period = student.period ?: "",
+            status = student.status ?: "",
+            name = student.name ?: "",
+            admission = student.admission ?: "",
+            email = student.email ?: "",
+            cpf = student.cpf ?: "",
+            rg = student.rg ?: "",
+            birthDate = student.birthDate ?: LocalDate.now(),
+            dueDate = student.dueDate ?: LocalDate.now(),
             password = "",
             qrcode = null,
             photo = null

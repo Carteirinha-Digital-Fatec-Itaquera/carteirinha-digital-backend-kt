@@ -1,13 +1,13 @@
 package com.fatecitaquera.carteirinhadigital.controllers
 
-import com.fatecitaquera.carteirinhadigital.exceptions.ResourceNotFoundException
-import com.fatecitaquera.carteirinhadigital.exceptions.enums.RuntimeErrorEnum
 import com.fatecitaquera.carteirinhadigital.dto.ErrorFieldDTO
 import com.fatecitaquera.carteirinhadigital.dto.ErrorMessageDTO
 import com.fatecitaquera.carteirinhadigital.exceptions.AuthenticationFailedException
 import com.fatecitaquera.carteirinhadigital.exceptions.DuplicateResourceException
 import com.fatecitaquera.carteirinhadigital.exceptions.InternalErrorException
 import com.fatecitaquera.carteirinhadigital.exceptions.OperationNotAllowedException
+import com.fatecitaquera.carteirinhadigital.exceptions.ResourceNotFoundException
+import com.fatecitaquera.carteirinhadigital.exceptions.enums.RuntimeErrorEnum
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -139,6 +139,7 @@ class ExceptionHandlerController {
         )
         return ResponseEntity.status(status).body(error)
     }
+
 //    @ExceptionHandler(UnsupportedMediaTypeException::class)
 //    fun unsupportedMediaType(
 //        exception: UnsupportedMediaTypeException, request: HttpServletRequest
@@ -154,7 +155,7 @@ class ExceptionHandlerController {
 //        )
 //        return ResponseEntity.status(status).body(error)
 //    }
-//
+
 //    @ExceptionHandler(InvalidArgumentsException::class)
 //    fun invalidArguments(
 //        exception: InvalidArgumentsException, request: HttpServletRequest
@@ -170,5 +171,5 @@ class ExceptionHandlerController {
 //        )
 //        return ResponseEntity.status(status).body(error)
 //    }
-//
+
 }

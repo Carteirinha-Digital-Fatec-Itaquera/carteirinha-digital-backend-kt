@@ -1,4 +1,4 @@
-package com.imobly.imobly.controllers.passwordrecovery.dtos
+package com.fatecitaquera.carteirinhadigital.dto
 
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotNull

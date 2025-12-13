@@ -6,6 +6,7 @@ import com.fatecitaquera.carteirinhadigital.mappers.StudentMapper
 import com.fatecitaquera.carteirinhadigital.services.StudentService
 import com.fatecitaquera.carteirinhadigital.services.security.TokenService
 import jakarta.servlet.http.HttpServletRequest
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/estudante")
+@RequestMapping("/estudantes")
 class StudentController(
     private val service: StudentService,
     private val mapper: StudentMapper,
@@ -41,13 +42,13 @@ class StudentController(
     }
 
     @PostMapping("/criar")
-    fun create(@RequestBody student: StudentDTO): ResponseEntity<Void> {
+    fun create(@Valid @RequestBody student: StudentDTO): ResponseEntity<Void> {
         service.create(mapper.toDomain(student))
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
 
     @PutMapping("/atualizar/{ra}")
-    fun update(@PathVariable ra: String, @RequestBody student: StudentDTO): ResponseEntity<Void> {
+    fun update(@PathVariable ra: String, @Valid @RequestBody student: StudentDTO): ResponseEntity<Void> {
         service.update(ra, mapper.toDomain(student))
         return ResponseEntity.ok().build()
     }

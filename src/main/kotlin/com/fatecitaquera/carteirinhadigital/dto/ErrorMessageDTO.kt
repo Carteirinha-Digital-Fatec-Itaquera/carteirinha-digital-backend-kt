@@ -11,4 +11,8 @@ data class ErrorMessageDTO(
     val timestamp: Instant,
     val path: String,
     val errorFields: List<ErrorFieldDTO>? = null
-)
+) {
+    override fun toString(): String {
+        return """{"code": "$code", "status": $status, "message": "$message", "timestamp": "$timestamp", "path": "$path"}"""
+    }
+}
