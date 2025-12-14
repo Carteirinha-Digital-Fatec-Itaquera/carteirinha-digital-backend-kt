@@ -86,7 +86,10 @@ class StudentMapper {
             dueDate = student.dueDate
         )
 
-    fun toListDomain(students: List<StudentEntity>): List<StudentDomain> =
+    fun listEntityToListDomain(students: List<StudentEntity>): List<StudentDomain> =
+        students.map { student -> toDomain(student) }
+
+    fun listDTOToListDomain(students: List<StudentDTO>): List<StudentDomain> =
         students.map { student -> toDomain(student) }
 
     fun toListDTO(students: List<StudentDomain>): List<ViewStudentDTO> =

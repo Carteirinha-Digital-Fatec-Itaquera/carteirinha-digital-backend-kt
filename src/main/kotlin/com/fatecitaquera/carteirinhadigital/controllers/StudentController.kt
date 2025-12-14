@@ -48,6 +48,12 @@ class StudentController(
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
 
+    @PostMapping("/criar-varios")
+    fun createMany(@Valid @RequestBody students: List<StudentDTO>): ResponseEntity<Void> {
+        service.createMany(mapper.listDTOToListDomain(students))
+        return ResponseEntity.status(HttpStatus.CREATED).build()
+    }
+
     @PutMapping("/atualizar/{id}")
     fun update(@PathVariable id: String, @Valid @RequestBody student: StudentDTO): ResponseEntity<Void> {
         service.update(id, mapper.toDomain(student))

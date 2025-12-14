@@ -17,7 +17,7 @@ class StudentService(
 ) {
 
     fun findAllByQuery(query: String): List<StudentDomain> =
-        studentMapper.toListDomain(
+        studentMapper.listEntityToListDomain(
             repository.findAllByNameContainingOrCpfContainingOrRgContainingOrEmailContainingOrCourseContainingOrPeriodContainingOrStatusContainingOrRaContainingAllIgnoreCase(
                 query, query, query, query, query, query, query, query
             )
@@ -32,6 +32,15 @@ class StudentService(
         student.id = null
         checkUniqueFields(student)
         repository.save(studentMapper.toEntity(student))
+    }
+
+    fun createMany(students: List<StudentDomain>) {
+        val studentEntities = students.map { student ->
+            student.id = null
+            checkUniqueFields(student)
+            studentMapper.toEntity(student)
+        }
+        repository.saveAll(studentEntities)
     }
 
     fun update(id: String, studentWithNewData: StudentDomain) {

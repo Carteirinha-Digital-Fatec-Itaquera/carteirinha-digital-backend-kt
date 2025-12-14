@@ -3,6 +3,7 @@ package com.fatecitaquera.carteirinhadigital.services.security
 import com.fatecitaquera.carteirinhadigital.domains.StudentDomain
 import com.fatecitaquera.carteirinhadigital.domains.UserDomain
 import com.fatecitaquera.carteirinhadigital.domains.enums.UserRoleEnum
+import com.fatecitaquera.carteirinhadigital.entities.StudentEntity
 import com.fatecitaquera.carteirinhadigital.mappers.SecretaryMapper
 import com.fatecitaquera.carteirinhadigital.mappers.StudentMapper
 import com.fatecitaquera.carteirinhadigital.repositories.SecretaryRepository
@@ -28,10 +29,13 @@ class UserDetailsService(
             var user: UserDomain = StudentDomain()
             student.ifPresentOrElse(
                 {
+                    if (!studentPasswordAlreadyDefined(it)) {
+                        throw BadCredentialsException("Student password is not defined")
+                    }
                     user = studentMapper.toUserDomain(it)
                 },
                 {
-                    throw BadCredentialsException("Student E-mail not found")
+                    throw BadCredentialsException("Student e-mail not found")
                 }
             )
             return user
@@ -43,14 +47,13 @@ class UserDetailsService(
                 user = secretaryMapper.toUserDomain(it)
             },
             {
-                throw BadCredentialsException("Secretary E-mail not found")
+                throw BadCredentialsException("Secretary e-mail not found")
             }
         )
         return user
     }
 
-    fun studentPasswordAlreadyDefined(email: String): Boolean {
-        val student = studentRepository.findByEmail(email).orElse(null) ?: return false
-        return student.password != null
+    private fun studentPasswordAlreadyDefined(student: StudentEntity): Boolean {
+        return student.password != null && student.password!!.isNotBlank()
     }
 }
