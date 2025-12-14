@@ -6,4 +6,5 @@ import java.util.Optional
 
 interface RecoveryPasswordStudentRepository: JpaRepository<RecoveryPasswordStudentEntity, String> {
     fun findByStudent_Email(email: String): Optional<RecoveryPasswordStudentEntity>
+    fun deleteAllByStudent_Id(id: String)
 }

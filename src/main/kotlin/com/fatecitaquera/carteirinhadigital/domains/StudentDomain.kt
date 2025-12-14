@@ -4,11 +4,12 @@ import com.fatecitaquera.carteirinhadigital.domains.enums.UserRoleEnum
 import java.time.LocalDate
 
 class StudentDomain(
-    ra: String = "",
+    id: String? = null,
     name: String = "",
     email: String = "",
-    password: String = "",
+    password: String? = "",
     role: UserRoleEnum = UserRoleEnum.STUDENT,
+    var ra: String = "",
     var course: String = "",
     var period: String = "",
     var status: String = "",
@@ -19,4 +20,4 @@ class StudentDomain(
     var photo: String? = "",
     var birthDate: LocalDate = LocalDate.MIN,
     var dueDate: LocalDate = LocalDate.MIN,
-): UserDomain(ra, name, email, password, role)
+): UserDomain(id, name, email, password ?: "", role)

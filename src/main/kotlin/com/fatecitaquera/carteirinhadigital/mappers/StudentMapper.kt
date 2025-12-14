@@ -13,7 +13,8 @@ class StudentMapper {
 
     fun toEntity(student: StudentDomain): StudentEntity =
         StudentEntity(
-            ra = student.id ?: "",
+            id = student.id,
+            ra = student.ra,
             course = student.course,
             period = student.period,
             status = student.status,
@@ -26,7 +27,7 @@ class StudentMapper {
             photo = null,
             birthDate = student.birthDate,
             dueDate = student.dueDate,
-            password = ""
+            password = null
         )
 
     fun toDomain(student: StudentDTO): StudentDomain =
@@ -49,6 +50,7 @@ class StudentMapper {
 
     fun toDomain(student: StudentEntity): StudentDomain =
         StudentDomain(
+            id = student.id ?: "",
             ra = student.ra,
             course = student.course,
             period = student.period,
@@ -68,7 +70,8 @@ class StudentMapper {
 
     fun toDTO(student: StudentDomain): ViewStudentDTO =
         ViewStudentDTO(
-            ra = student.id ?: "",
+            id = student.id ?: "",
+            ra = student.ra,
             course = student.course,
             period = student.period,
             status = student.status,
@@ -91,10 +94,10 @@ class StudentMapper {
 
     fun toUserDomain(student: StudentEntity): UserDomain =
         UserDomain(
-            id = student.ra,
+            id = student.id,
             name = student.name,
             email = student.email,
-            passwd = student.password,
+            passwd = student.password ?: "",
             role = student.role
         )
 }

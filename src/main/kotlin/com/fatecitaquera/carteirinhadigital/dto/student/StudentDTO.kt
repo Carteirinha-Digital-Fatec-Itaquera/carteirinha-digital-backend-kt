@@ -6,7 +6,10 @@ import java.time.LocalDate
 data class StudentDTO(
 
     @field:NotBlank(message = "O campo RA é obrigatório")
-    @field:Size(max = 30, message = "O campo RA deve ter no máximo 30 caracteres")
+    @field:Pattern(
+        regexp = "^\\d{13}$",
+        message = "RA deve estar no formato 0000000000000"
+    )
     val ra: String?,
 
     @field:NotBlank(message = "O campo curso é obrigatório")

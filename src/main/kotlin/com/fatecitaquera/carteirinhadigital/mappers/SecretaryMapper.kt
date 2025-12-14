@@ -11,6 +11,7 @@ class SecretaryMapper {
 
     fun toEntity(secretary: SecretaryDomain): SecretaryEntity =
         SecretaryEntity(
+            id = secretary.id,
             name = secretary.name,
             email = secretary.email,
             password = secretary.password

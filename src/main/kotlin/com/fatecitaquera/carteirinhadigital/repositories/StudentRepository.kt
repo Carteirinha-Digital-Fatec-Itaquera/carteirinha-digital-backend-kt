@@ -6,20 +6,17 @@ import java.util.Optional
 
 interface StudentRepository : JpaRepository<StudentEntity, String> {
 
-    fun findAllByNameContainingOrCpfContainingOrRgContainingOrEmailContainingOrCourseContainingOrPeriodContainingOrStatusContainingAllIgnoreCase(
-        name: String, cpf: String, rg: String, email: String, course: String, period: String, status: String
+    fun findAllByNameContainingOrCpfContainingOrRgContainingOrEmailContainingOrCourseContainingOrPeriodContainingOrStatusContainingOrRaContainingAllIgnoreCase(
+        name: String, cpf: String, rg: String, email: String, course: String, period: String, status: String, ra: String
     ): List<StudentEntity>
-
-    fun findByRa(ra: String): Optional<StudentEntity>
 
     fun findByEmail(email: String): Optional<StudentEntity>
 
-    fun existsByRaAndCpfNot(ra: String, cpf: String): Boolean
+    fun existsByRaAndIdNot(ra: String, id: String): Boolean
 
-    fun existsByEmailAndCpfNot(email: String, cpf: String): Boolean
+    fun existsByEmailAndIdNot(email: String, id: String): Boolean
 
-    fun existsByCpfAndRaNot(cpf: String, ra: String): Boolean
+    fun existsByCpfAndIdNot(cpf: String, id: String): Boolean
 
-    fun existsByRgAndCpfNot(rg: String, cpf: String): Boolean
-
+    fun existsByRgAndIdNot(rg: String, id: String): Boolean
 }

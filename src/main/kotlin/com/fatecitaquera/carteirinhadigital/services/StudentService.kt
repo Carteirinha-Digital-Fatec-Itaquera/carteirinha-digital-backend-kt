@@ -2,44 +2,46 @@ package com.fatecitaquera.carteirinhadigital.services
 
 import com.fatecitaquera.carteirinhadigital.domains.StudentDomain
 import com.fatecitaquera.carteirinhadigital.exceptions.DuplicateResourceException
-import com.fatecitaquera.carteirinhadigital.exceptions.OperationNotAllowedException
 import com.fatecitaquera.carteirinhadigital.exceptions.ResourceNotFoundException
 import com.fatecitaquera.carteirinhadigital.exceptions.enums.RuntimeErrorEnum
 import com.fatecitaquera.carteirinhadigital.mappers.StudentMapper
+import com.fatecitaquera.carteirinhadigital.repositories.RecoveryPasswordStudentRepository
 import com.fatecitaquera.carteirinhadigital.repositories.StudentRepository
 import org.springframework.stereotype.Service
 
 @Service
 class StudentService(
     val repository: StudentRepository,
+    val recoveryPasswordStudentRepository: RecoveryPasswordStudentRepository,
     val mapper: StudentMapper
 ) {
 
     fun findAllByQuery(query: String): List<StudentDomain> =
         mapper.toListDomain(
-            repository.findAllByNameContainingOrCpfContainingOrRgContainingOrEmailContainingOrCourseContainingOrPeriodContainingOrStatusContainingAllIgnoreCase(
-                query, query, query, query, query, query, query
+            repository.findAllByNameContainingOrCpfContainingOrRgContainingOrEmailContainingOrCourseContainingOrPeriodContainingOrStatusContainingOrRaContainingAllIgnoreCase(
+                query, query, query, query, query, query, query, query
             )
         )
 
-    fun findByRa(ra: String): StudentDomain =
-        mapper.toDomain(repository.findByRa(ra).orElseThrow {
+    fun findById(id: String): StudentDomain =
+        mapper.toDomain(repository.findById(id).orElseThrow {
             ResourceNotFoundException(RuntimeErrorEnum.ERR0001)
         })
 
     fun create(student: StudentDomain) {
+        student.id = null
         checkUniqueFields(student)
         repository.save(mapper.toEntity(student))
     }
 
-    fun update(ra: String, studentWithNewData: StudentDomain) {
-        val studentToUpdate = mapper.toDomain(repository.findByRa(ra).orElseThrow {
+    fun update(id: String, studentWithNewData: StudentDomain) {
+        val studentToUpdate = mapper.toDomain(repository.findById(id).orElseThrow {
             ResourceNotFoundException(RuntimeErrorEnum.ERR0001)
         })
 
-        checkUniqueFields(studentWithNewData, studentToUpdate.cpf, studentToUpdate.id ?: "")
+        checkUniqueFields(studentWithNewData, studentToUpdate.id ?: "")
 
-        studentToUpdate.id = studentWithNewData.id
+        studentToUpdate.ra = studentWithNewData.ra
         studentToUpdate.name = studentWithNewData.name
         studentToUpdate.status = studentWithNewData.status
         studentToUpdate.cpf = studentWithNewData.cpf
@@ -55,24 +57,25 @@ class StudentService(
         repository.save(mapper.toEntity(studentToUpdate))
     }
 
-    fun delete(ra: String) {
-        val studentToDelete = repository.findByRa(ra).orElseThrow {
+    fun delete(id: String) {
+        val studentToDelete = repository.findById(id).orElseThrow {
             ResourceNotFoundException(RuntimeErrorEnum.ERR0001)
         }
+        recoveryPasswordStudentRepository.deleteAllByStudent_Id(studentToDelete.id ?: "")
         repository.delete(studentToDelete)
     }
 
-    private fun checkUniqueFields(student: StudentDomain, cpf: String = "", ra: String = "") {
-        if (repository.existsByRaAndCpfNot(student.id ?: "", cpf)) {
+    private fun checkUniqueFields(student: StudentDomain, id: String = "") {
+        if (repository.existsByRaAndIdNot(student.ra, id)) {
             throw DuplicateResourceException(RuntimeErrorEnum.ERR0009)
         }
-        if (repository.existsByEmailAndCpfNot(student.email, cpf)) {
+        if (repository.existsByEmailAndIdNot(student.email, id)) {
             throw DuplicateResourceException(RuntimeErrorEnum.ERR0010)
         }
-        if (repository.existsByCpfAndRaNot(student.cpf, ra)) {
+        if (repository.existsByCpfAndIdNot(student.cpf, id)) {
             throw DuplicateResourceException(RuntimeErrorEnum.ERR0011)
         }
-        if (repository.existsByRgAndCpfNot(student.rg, cpf)) {
+        if (repository.existsByRgAndIdNot(student.rg, id)) {
             throw DuplicateResourceException(RuntimeErrorEnum.ERR0012)
         }
     }

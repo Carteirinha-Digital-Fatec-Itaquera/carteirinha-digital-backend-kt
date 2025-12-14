@@ -42,7 +42,7 @@ class StudentPasswordRecoveryService (
                 }
             }
         )
-        emailService.sendEmail(email, "Recuperar Senha", "Código de confirmação: $token")
+        emailService.sendEmail(email, "Recuperação de Senha", emailContent(token))
     }
 
     fun changePassword(email: String, token: String, newPassword: String) {

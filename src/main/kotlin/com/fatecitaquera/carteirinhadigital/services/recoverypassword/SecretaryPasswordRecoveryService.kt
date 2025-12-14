@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
 @Service
-class SecretaryPasswordRecoveryService (
+class SecretaryPasswordRecoveryService(
     private val secretaryRepository: SecretaryRepository,
     private val secretaryMapper: SecretaryMapper,
     private val recoveryPasswordRepository: RecoveryPasswordSecretaryRepository,
@@ -22,7 +22,7 @@ class SecretaryPasswordRecoveryService (
     private val emailService: EmailService
 ) {
     fun getCode(email: String) {
-        val token =  String.format("%06d", (0..999999).random())
+        val token = String.format("%06d", (0..999999).random())
         recoveryPasswordRepository.findBySecretary_Email(email).ifPresentOrElse(
             {
                 val recoveryPassword = recoveryPasswordMapper.toDomain(it)
@@ -42,12 +42,12 @@ class SecretaryPasswordRecoveryService (
                 }
             }
         )
-        emailService.sendEmail(email, "Recuperar Senha", "Código de confirmação: $token")
+        emailService.sendEmail(email, "Recuperação de Senha", emailContent(token))
     }
 
     fun changePassword(email: String, token: String, newPassword: String) {
 
-        if ( !validateToken(email, token) ) {
+        if (!validateToken(email, token)) {
             throw OperationNotAllowedException(RuntimeErrorEnum.ERR0006)
         }
 

@@ -3,6 +3,7 @@ package com.fatecitaquera.carteirinhadigital.dto.student
 import java.time.LocalDate
 
 data class ViewStudentDTO(
+    val id: String,
     val ra: String,
     val course: String,
     val period: String,

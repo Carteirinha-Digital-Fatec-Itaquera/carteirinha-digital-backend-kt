@@ -31,14 +31,14 @@ class StudentController(
     fun findAllByQuery(@RequestParam query: String):  ResponseEntity<List<ViewStudentDTO>> =
         ResponseEntity.ok().body(mapper.toListDTO(service.findAllByQuery(query)))
 
-    @GetMapping("/encontrar-por-ra/{ra}")
-    fun findByRa(@PathVariable ra: String): ResponseEntity<ViewStudentDTO> =
-        ResponseEntity.ok().body(mapper.toDTO(service.findByRa(ra)))
+    @GetMapping("/encontrar-por-id/{id}")
+    fun findByRa(@PathVariable id: String): ResponseEntity<ViewStudentDTO> =
+        ResponseEntity.ok().body(mapper.toDTO(service.findById(id)))
 
     @GetMapping("/buscar-carteirinha")
     fun findProfile(request: HttpServletRequest): ResponseEntity<ViewStudentDTO> {
-        val ra = tokenService.getIdFromRequest(request)
-        return ResponseEntity.ok().body(mapper.toDTO(service.findByRa(ra)))
+        val id = tokenService.getIdFromRequest(request)
+        return ResponseEntity.ok().body(mapper.toDTO(service.findById(id)))
     }
 
     @PostMapping("/criar")
@@ -47,15 +47,15 @@ class StudentController(
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
 
-    @PutMapping("/atualizar/{ra}")
-    fun update(@PathVariable ra: String, @Valid @RequestBody student: StudentDTO): ResponseEntity<Void> {
-        service.update(ra, mapper.toDomain(student))
+    @PutMapping("/atualizar/{id}")
+    fun update(@PathVariable id: String, @Valid @RequestBody student: StudentDTO): ResponseEntity<Void> {
+        service.update(id, mapper.toDomain(student))
         return ResponseEntity.ok().build()
     }
 
-    @DeleteMapping("/deletar/{ra}")
-    fun delete(@PathVariable ra: String): ResponseEntity<Void>  {
-        service.delete(ra)
+    @DeleteMapping("/deletar/{id}")
+    fun delete(@PathVariable id: String): ResponseEntity<Void>  {
+        service.delete(id)
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
     }
 }

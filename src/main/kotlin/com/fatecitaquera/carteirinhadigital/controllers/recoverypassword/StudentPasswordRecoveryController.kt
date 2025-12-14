@@ -5,6 +5,7 @@ import com.fatecitaquera.carteirinhadigital.exceptions.enums.RuntimeErrorEnum
 import com.fatecitaquera.carteirinhadigital.services.recoverypassword.StudentPasswordRecoveryService
 import com.fatecitaquera.carteirinhadigital.dto.EmailDTO
 import com.fatecitaquera.carteirinhadigital.dto.ResetPasswordDTO
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -21,8 +22,8 @@ class StudentPasswordRecoveryController (
     private val service: StudentPasswordRecoveryService
 ) {
     @PostMapping("/solicitarcodigo")
-    fun requestCode(@RequestBody dto: EmailDTO): ResponseEntity<Void> {
-        service.getCode(dto.email)
+    fun requestCode(@Valid @RequestBody dto: EmailDTO): ResponseEntity<Void> {
+        service.getCode(dto.email ?: "")
         return ResponseEntity.status(HttpStatus.OK).build()
     }
 
@@ -35,8 +36,8 @@ class StudentPasswordRecoveryController (
     }
 
     @PatchMapping("/criarnovasenha")
-    fun resetPassword(@RequestBody dto: ResetPasswordDTO): ResponseEntity<Void> {
-        service.changePassword(dto.email, dto.code, dto.newPassword)
+    fun resetPassword(@Valid  @RequestBody dto: ResetPasswordDTO): ResponseEntity<Void> {
+        service.changePassword(dto.email ?: "", dto.code ?: "", dto.newPassword ?: "")
         return ResponseEntity.status(HttpStatus.OK).build()
     }
 }
