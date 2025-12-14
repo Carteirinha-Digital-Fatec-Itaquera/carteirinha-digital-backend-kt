@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class SecretaryService(
-    val repository: SecretaryRepository,
-    val mapper: SecretaryMapper
+    private val repository: SecretaryRepository,
+    private val mapper: SecretaryMapper
 ) {
     fun signup(secretary: SecretaryDomain) {
         if (repository.findAll().isNotEmpty()) {

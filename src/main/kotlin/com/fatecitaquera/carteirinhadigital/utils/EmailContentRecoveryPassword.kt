@@ -1,6 +1,8 @@
-package com.fatecitaquera.carteirinhadigital.services.recoverypassword
+package com.fatecitaquera.carteirinhadigital.utils
 
-fun emailContent(token: String): String {
+import java.time.Year
+
+fun emailContentRecoveryPassword(token: String): String {
     return """
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -63,7 +65,7 @@ fun emailContent(token: String): String {
                     <!-- Footer -->
                     <tr>
                         <td style="background-color: #f4f6f8; padding: 15px; text-align: center; font-size: 12px; color: #999999;">
-                            © ${java.time.Year.now()} Fatec Itaquera — Todos os direitos reservados
+                            © ${Year.now()} Fatec Itaquera — Todos os direitos reservados
                         </td>
                     </tr>
 

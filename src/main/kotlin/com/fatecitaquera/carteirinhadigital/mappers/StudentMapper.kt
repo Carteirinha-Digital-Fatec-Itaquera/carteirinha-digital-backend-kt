@@ -23,11 +23,11 @@ class StudentMapper {
             email = student.email,
             cpf = student.cpf,
             rg = student.rg,
-            qrcode = null,
-            photo = null,
+            qrcode = student.qrcode,
+            photo = student.photo,
             birthDate = student.birthDate,
             dueDate = student.dueDate,
-            password = null
+            password = student.password
         )
 
     fun toDomain(student: StudentDTO): StudentDomain =
@@ -43,7 +43,7 @@ class StudentMapper {
             rg = student.rg ?: "",
             birthDate = student.birthDate ?: LocalDate.now(),
             dueDate = student.dueDate ?: LocalDate.now(),
-            password = "",
+            password = null,
             qrcode = null,
             photo = null
         )

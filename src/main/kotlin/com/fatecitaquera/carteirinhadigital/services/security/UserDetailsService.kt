@@ -24,9 +24,9 @@ class UserDetailsService(
 
     override fun loadUserByUsername(username: String): UserDetails {
         if (role == UserRoleEnum.STUDENT) {
-            val tenant = studentRepository.findByEmail(username)
+            val student = studentRepository.findByEmail(username)
             var user: UserDomain = StudentDomain()
-            tenant.ifPresentOrElse(
+            student.ifPresentOrElse(
                 {
                     user = studentMapper.toUserDomain(it)
                 },
@@ -36,9 +36,9 @@ class UserDetailsService(
             )
             return user
         }
-        val landLord = secretaryRepository.findByEmail(username)
+        val secretary = secretaryRepository.findByEmail(username)
         var user: UserDomain = StudentDomain()
-        landLord.ifPresentOrElse(
+        secretary.ifPresentOrElse(
             {
                 user = secretaryMapper.toUserDomain(it)
             },
@@ -47,5 +47,10 @@ class UserDetailsService(
             }
         )
         return user
+    }
+
+    fun studentPasswordAlreadyDefined(email: String): Boolean {
+        val student = studentRepository.findByEmail(email).orElse(null) ?: return false
+        return student.password != null
     }
 }

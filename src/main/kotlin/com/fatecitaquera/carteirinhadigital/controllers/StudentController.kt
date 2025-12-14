@@ -1,5 +1,6 @@
 package com.fatecitaquera.carteirinhadigital.controllers
 
+import com.fatecitaquera.carteirinhadigital.dto.CpfDTO
 import com.fatecitaquera.carteirinhadigital.dto.student.StudentDTO
 import com.fatecitaquera.carteirinhadigital.dto.student.ViewStudentDTO
 import com.fatecitaquera.carteirinhadigital.mappers.StudentMapper

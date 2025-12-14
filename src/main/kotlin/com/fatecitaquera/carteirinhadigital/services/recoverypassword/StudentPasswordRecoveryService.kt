@@ -9,12 +9,13 @@ import com.fatecitaquera.carteirinhadigital.repositories.StudentRepository
 import com.fatecitaquera.carteirinhadigital.services.EmailService
 import com.fatecitaquera.carteirinhadigital.repositories.RecoveryPasswordStudentRepository
 import com.fatecitaquera.carteirinhadigital.mappers.RecoveryPasswordPersistenceMapper
+import com.fatecitaquera.carteirinhadigital.utils.emailContentRecoveryPassword
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
 @Service
-class StudentPasswordRecoveryService (
+class StudentPasswordRecoveryService(
     private val studentRepository: StudentRepository,
     private val studentMapper: StudentMapper,
     private val recoveryPasswordRepository: RecoveryPasswordStudentRepository,
@@ -31,18 +32,18 @@ class StudentPasswordRecoveryService (
                 recoveryPasswordRepository.save(recoveryPasswordMapper.toEntity(recoveryPassword))
             },
             {
-                val tenant = studentRepository.findByEmail(email).orElse(null)
-                if (tenant != null) {
+                val student = studentRepository.findByEmail(email).orElse(null)
+                if (student != null) {
                     val recoveryPassword = RecoveryPasswordStudentDomain(
                         token = token,
-                        student = studentMapper.toDomain(tenant),
+                        student = studentMapper.toDomain(student),
                         moment = LocalDateTime.now().plusMinutes(5)
                     )
                     recoveryPasswordRepository.save(recoveryPasswordMapper.toEntity(recoveryPassword))
                 }
             }
         )
-        emailService.sendEmail(email, "Recuperação de Senha", emailContent(token))
+        emailService.sendEmail(email, "Recuperação de Senha", emailContentRecoveryPassword(token))
     }
 
     fun changePassword(email: String, token: String, newPassword: String) {
@@ -51,11 +52,11 @@ class StudentPasswordRecoveryService (
             throw OperationNotAllowedException(RuntimeErrorEnum.ERR0006)
         }
 
-        val tenant = studentMapper.toDomain(studentRepository.findByEmail(email).orElseThrow {
+        val student = studentMapper.toDomain(studentRepository.findByEmail(email).orElseThrow {
             throw ResourceNotFoundException(RuntimeErrorEnum.ERR0007)
         })
-        tenant.passwd = BCryptPasswordEncoder().encode(newPassword)!!
-        studentRepository.save(studentMapper.toEntity(tenant))
+        student.passwd = BCryptPasswordEncoder().encode(newPassword)!!
+        studentRepository.save(studentMapper.toEntity(student))
 
         val recoveryPassword = recoveryPasswordRepository.findByStudent_Email(email).orElseThrow {
             throw ResourceNotFoundException(RuntimeErrorEnum.ERR0007)

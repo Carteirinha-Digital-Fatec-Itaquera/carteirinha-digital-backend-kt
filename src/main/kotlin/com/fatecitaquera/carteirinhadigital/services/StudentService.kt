@@ -11,31 +11,31 @@ import org.springframework.stereotype.Service
 
 @Service
 class StudentService(
-    val repository: StudentRepository,
-    val recoveryPasswordStudentRepository: RecoveryPasswordStudentRepository,
-    val mapper: StudentMapper
+    private val repository: StudentRepository,
+    private val studentMapper: StudentMapper,
+    private val recoveryPasswordStudentRepository: RecoveryPasswordStudentRepository,
 ) {
 
     fun findAllByQuery(query: String): List<StudentDomain> =
-        mapper.toListDomain(
+        studentMapper.toListDomain(
             repository.findAllByNameContainingOrCpfContainingOrRgContainingOrEmailContainingOrCourseContainingOrPeriodContainingOrStatusContainingOrRaContainingAllIgnoreCase(
                 query, query, query, query, query, query, query, query
             )
         )
 
     fun findById(id: String): StudentDomain =
-        mapper.toDomain(repository.findById(id).orElseThrow {
+        studentMapper.toDomain(repository.findById(id).orElseThrow {
             ResourceNotFoundException(RuntimeErrorEnum.ERR0001)
         })
 
     fun create(student: StudentDomain) {
         student.id = null
         checkUniqueFields(student)
-        repository.save(mapper.toEntity(student))
+        repository.save(studentMapper.toEntity(student))
     }
 
     fun update(id: String, studentWithNewData: StudentDomain) {
-        val studentToUpdate = mapper.toDomain(repository.findById(id).orElseThrow {
+        val studentToUpdate = studentMapper.toDomain(repository.findById(id).orElseThrow {
             ResourceNotFoundException(RuntimeErrorEnum.ERR0001)
         })
 
@@ -54,7 +54,7 @@ class StudentService(
         studentToUpdate.email = studentWithNewData.email
         studentToUpdate.period = studentWithNewData.period
 
-        repository.save(mapper.toEntity(studentToUpdate))
+        repository.save(studentMapper.toEntity(studentToUpdate))
     }
 
     fun delete(id: String) {

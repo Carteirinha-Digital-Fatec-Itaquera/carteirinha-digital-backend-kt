@@ -9,6 +9,7 @@ import com.fatecitaquera.carteirinhadigital.repositories.SecretaryRepository
 import com.fatecitaquera.carteirinhadigital.mappers.RecoveryPasswordPersistenceMapper
 import com.fatecitaquera.carteirinhadigital.repositories.RecoveryPasswordSecretaryRepository
 import com.fatecitaquera.carteirinhadigital.services.EmailService
+import com.fatecitaquera.carteirinhadigital.utils.emailContentRecoveryPassword
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
@@ -42,7 +43,7 @@ class SecretaryPasswordRecoveryService(
                 }
             }
         )
-        emailService.sendEmail(email, "Recuperação de Senha", emailContent(token))
+        emailService.sendEmail(email, "Recuperação de Senha", emailContentRecoveryPassword(token))
     }
 
     fun changePassword(email: String, token: String, newPassword: String) {

@@ -12,6 +12,8 @@ interface StudentRepository : JpaRepository<StudentEntity, String> {
 
     fun findByEmail(email: String): Optional<StudentEntity>
 
+    fun findByCpf(cpf: String): Optional<StudentEntity>
+
     fun existsByRaAndIdNot(ra: String, id: String): Boolean
 
     fun existsByEmailAndIdNot(email: String, id: String): Boolean
