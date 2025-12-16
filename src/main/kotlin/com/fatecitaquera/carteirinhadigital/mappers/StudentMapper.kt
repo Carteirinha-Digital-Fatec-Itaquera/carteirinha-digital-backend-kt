@@ -27,7 +27,9 @@ class StudentMapper {
             photo = student.photo,
             birthDate = student.birthDate,
             dueDate = student.dueDate,
-            password = student.password
+            password = student.password,
+            photoApproved = student.photoApproved,
+            requestPending = student.requestPending
         )
 
     fun toDomain(student: StudentDTO): StudentDomain =
@@ -45,7 +47,9 @@ class StudentMapper {
             dueDate = student.dueDate ?: LocalDate.now(),
             password = null,
             qrcode = null,
-            photo = null
+            photo = null,
+            photoApproved = false,
+            requestPending = false
         )
 
     fun toDomain(student: StudentEntity): StudentDomain =
@@ -65,7 +69,9 @@ class StudentMapper {
             birthDate = student.birthDate,
             dueDate = student.dueDate,
             password = student.password,
-            role = student.role
+            role = student.role,
+            photoApproved = student.photoApproved,
+            requestPending = student.requestPending
         )
 
     fun toDTO(student: StudentDomain): ViewStudentDTO =
@@ -83,7 +89,8 @@ class StudentMapper {
             qrcode = student.qrcode ?: "",
             photo = student.photo ?: "",
             birthDate = student.birthDate,
-            dueDate = student.dueDate
+            dueDate = student.dueDate,
+            requestPending = student.requestPending
         )
 
     fun listEntityToListDomain(students: List<StudentEntity>): List<StudentDomain> =

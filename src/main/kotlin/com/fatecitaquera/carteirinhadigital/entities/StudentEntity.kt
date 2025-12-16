@@ -59,5 +59,11 @@ class StudentEntity(
     val password: String?,
 
     @Column(name = "papel", nullable = false)
-    val role: UserRoleEnum = UserRoleEnum.STUDENT
+    val role: UserRoleEnum = UserRoleEnum.STUDENT,
+
+    @Column(name = "photo_aprovada")
+    val photoApproved: Boolean,
+
+    @Column(name = "solicitacao_pendente")
+    val requestPending: Boolean
 )

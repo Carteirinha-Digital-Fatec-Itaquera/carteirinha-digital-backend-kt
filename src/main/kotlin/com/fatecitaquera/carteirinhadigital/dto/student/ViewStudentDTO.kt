@@ -16,5 +16,6 @@ data class ViewStudentDTO(
     val qrcode: String,
     val photo: String,
     val birthDate: LocalDate,
-    val dueDate: LocalDate
+    val dueDate: LocalDate,
+    val requestPending: Boolean
 )

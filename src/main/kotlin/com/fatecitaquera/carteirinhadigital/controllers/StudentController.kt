@@ -1,6 +1,5 @@
 package com.fatecitaquera.carteirinhadigital.controllers
 
-import com.fatecitaquera.carteirinhadigital.dto.CpfDTO
 import com.fatecitaquera.carteirinhadigital.dto.student.StudentDTO
 import com.fatecitaquera.carteirinhadigital.dto.student.ViewStudentDTO
 import com.fatecitaquera.carteirinhadigital.mappers.StudentMapper
@@ -12,13 +11,16 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RequestPart
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.multipart.MultipartFile
 
 @RestController
 @RequestMapping("/estudantes")
@@ -52,6 +54,22 @@ class StudentController(
     fun createMany(@Valid @RequestBody students: List<StudentDTO>): ResponseEntity<Void> {
         service.createMany(mapper.listDTOToListDomain(students))
         return ResponseEntity.status(HttpStatus.CREATED).build()
+    }
+
+    @PatchMapping("/enviar-imagem")
+    fun sendPhoto(
+        request: HttpServletRequest,
+        @RequestPart(value = "file", required = false) file: MultipartFile?
+    ): ResponseEntity<Void> {
+        val id = tokenService.getIdFromRequest(request)
+        service.uploadPhotoAndLinkWithStudent( id, file )
+        return ResponseEntity.ok().build()
+    }
+
+    @PatchMapping("/aprovar-imagem/{id}/{approved}")
+    fun sendPhoto(@PathVariable id: String, @PathVariable approved: Boolean): ResponseEntity<Void> {
+        service.approvePhoto( id, approved )
+        return ResponseEntity.ok().build()
     }
 
     @PutMapping("/atualizar/{id}")

@@ -5,8 +5,10 @@ import com.fatecitaquera.carteirinhadigital.dto.ErrorMessageDTO
 import com.fatecitaquera.carteirinhadigital.exceptions.AuthenticationFailedException
 import com.fatecitaquera.carteirinhadigital.exceptions.DuplicateResourceException
 import com.fatecitaquera.carteirinhadigital.exceptions.InternalErrorException
+import com.fatecitaquera.carteirinhadigital.exceptions.InvalidArgumentsException
 import com.fatecitaquera.carteirinhadigital.exceptions.OperationNotAllowedException
 import com.fatecitaquera.carteirinhadigital.exceptions.ResourceNotFoundException
+import com.fatecitaquera.carteirinhadigital.exceptions.UnsupportedMediaTypeException
 import com.fatecitaquera.carteirinhadigital.exceptions.enums.RuntimeErrorEnum
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
@@ -140,36 +142,36 @@ class ExceptionHandlerController {
         return ResponseEntity.status(status).body(error)
     }
 
-//    @ExceptionHandler(UnsupportedMediaTypeException::class)
-//    fun unsupportedMediaType(
-//        exception: UnsupportedMediaTypeException, request: HttpServletRequest
-//    ): ResponseEntity<ErrorMessageDTO> {
-//        val enum: ErrorRuntimeEnum = exception.errorEnum
-//        val status: HttpStatus = HttpStatus.UNSUPPORTED_MEDIA_TYPE
-//        val error = ErrorMessageDTO(
-//            code = enum.code,
-//            status = status.value(),
-//            message = enum.message,
-//            timestamp = Instant.now(),
-//            path = request.requestURI
-//        )
-//        return ResponseEntity.status(status).body(error)
-//    }
+    @ExceptionHandler(UnsupportedMediaTypeException::class)
+    fun unsupportedMediaType(
+        exception: UnsupportedMediaTypeException, request: HttpServletRequest
+    ): ResponseEntity<ErrorMessageDTO> {
+        val enum: RuntimeErrorEnum = exception.error
+        val status: HttpStatus = HttpStatus.UNSUPPORTED_MEDIA_TYPE
+        val error = ErrorMessageDTO(
+            code = enum.code,
+            status = status.value(),
+            message = enum.description,
+            timestamp = Instant.now(),
+            path = request.requestURI
+        )
+        return ResponseEntity.status(status).body(error)
+    }
 
-//    @ExceptionHandler(InvalidArgumentsException::class)
-//    fun invalidArguments(
-//        exception: InvalidArgumentsException, request: HttpServletRequest
-//    ): ResponseEntity<ErrorMessageDTO> {
-//        val enum: ErrorRuntimeEnum = exception.errorEnum
-//        val status: HttpStatus = HttpStatus.BAD_REQUEST
-//        val error = ErrorMessageDTO(
-//            code = enum.code,
-//            status = status.value(),
-//            message = enum.message,
-//            timestamp = Instant.now(),
-//            path = request.requestURI
-//        )
-//        return ResponseEntity.status(status).body(error)
-//    }
+    @ExceptionHandler(InvalidArgumentsException::class)
+    fun invalidArguments(
+        exception: InvalidArgumentsException, request: HttpServletRequest
+    ): ResponseEntity<ErrorMessageDTO> {
+        val enum: RuntimeErrorEnum = exception.error
+        val status: HttpStatus = HttpStatus.BAD_REQUEST
+        val error = ErrorMessageDTO(
+            code = enum.code,
+            status = status.value(),
+            message = enum.description,
+            timestamp = Instant.now(),
+            path = request.requestURI
+        )
+        return ResponseEntity.status(status).body(error)
+    }
 
 }

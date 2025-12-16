@@ -21,26 +21,40 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-mail")
-	implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-starter-webmvc")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("tools.jackson.module:jackson-module-kotlin")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
-	runtimeOnly("org.postgresql:postgresql")
-	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
-	testImplementation("org.springframework.boot:spring-boot-starter-mail-test")
-	testImplementation("org.springframework.boot:spring-boot-starter-security-test")
-	testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
+
+	// JUnit
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
+	// Security
+	testImplementation("org.springframework.boot:spring-boot-starter-security-test")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+
+	// Validation
+	testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+
+	// JPA and Postgres
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
+	runtimeOnly("org.postgresql:postgresql")
+
+	// E-Mail
+	implementation("org.springframework.boot:spring-boot-starter-mail")
+	testImplementation("org.springframework.boot:spring-boot-starter-mail-test")
+
+	// JWT
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.7")
     implementation("io.jsonwebtoken:jjwt-api:0.12.7")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.7")
+
+	// AWS/SUPABASE
+	implementation("software.amazon.awssdk:s3:2.25.63")
 }
 
 kotlin {

@@ -18,6 +18,11 @@ class SecretaryService(
             throw OperationNotAllowedException(RuntimeErrorEnum.ERR0008)
         }
         secretary.id = null
+        val regex = Regex("^(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).+$")
+
+        if (!secretary.passwd.matches(regex)) {
+            throw OperationNotAllowedException(RuntimeErrorEnum.ERR0014)
+        }
         secretary.passwd = BCryptPasswordEncoder().encode(secretary.passwd).toString()
         repository.save(mapper.toEntity(secretary))
     }

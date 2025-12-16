@@ -51,10 +51,11 @@ class SecurityConfig(val jwtAuthFilter: JwtAuthFilter) {
                         "/estudantes/encontrar-por-ra",
                         "/estudantes/criar",
                         "/estudantes/atualizar",
-                        "/estudantes/deletar"
+                        "/estudantes/deletar",
+                        "/estudantes/aprovar-imagem/**",
                     ).hasRole("SECRETARY")
 
-                    .requestMatchers("/estudante/buscar-carteirinha").hasRole("STUDENT")
+                    .requestMatchers("/estudantes/buscar-carteirinha", "/estudantes/enviar-imagem").hasRole("STUDENT")
 
                     .anyRequest().authenticated()
             }

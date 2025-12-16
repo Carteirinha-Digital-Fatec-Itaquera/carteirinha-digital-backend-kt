@@ -26,7 +26,7 @@ class FirstAccessStudentService(
         var email: String? = null
         firstAccessStudentRepository.findByStudent_Cpf(cpf).ifPresentOrElse(
             {
-                if (it.student.password == null) {
+                if (it.student.password == null || it.student.password!!.isEmpty()) {
                     val firstAccess = firstAccessMapper.toDomain(it)
                     firstAccess.token = token
                     firstAccess.moment = LocalDateTime.now().plusMinutes(5)
@@ -36,7 +36,7 @@ class FirstAccessStudentService(
             },
             {
                 val student = studentRepository.findByCpf(cpf).orElse(null)
-                if (student != null && student.password == null) {
+                if (student != null && (student.password == null || student.password!!.isEmpty())) {
                     val firstAccess = FirstAccessStudentDomain(
                         token = token,
                         student = studentMapper.toDomain(student),
@@ -57,6 +57,12 @@ class FirstAccessStudentService(
 
         if ( !validateToken(cpf, token) ) {
             throw OperationNotAllowedException(RuntimeErrorEnum.ERR0006)
+        }
+
+        val regex = Regex("^(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).+$")
+
+        if (!newPassword.matches(regex)) {
+            throw OperationNotAllowedException(RuntimeErrorEnum.ERR0014)
         }
 
         val student = studentMapper.toDomain(studentRepository.findByCpf(cpf).orElseThrow {

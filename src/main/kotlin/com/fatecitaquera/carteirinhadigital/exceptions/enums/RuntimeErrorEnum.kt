@@ -17,5 +17,10 @@ enum class RuntimeErrorEnum(
     ERR0011("DUPLICATE_RESOURCE", "O CPF informado já existe"),
     ERR0012("DUPLICATE_RESOURCE", "O RG informado já existe"),
     ERR0013("RESOURCE_NOT_FOUND", "O CPF informado não foi encontrado"),
+    ERR0014("OPERATION_NOT_ALLOWED", "A senha deve ter ao menos um caracterer maiúsculo, numérico e especial"),
+    ERR0015("UPLOAD_OBJECT_ERROR", "O tipo da imagem não é suportada. Escolha entre (JPEG, PNG, WEBP)"),
+    ERR0016("UPLOAD_OBJECT_ERROR", "Houve um erro inesperado ao fazer o upload da imagem."),
+    ERR0017("UPLOAD_OBJECT_ERROR", "Não foi possível obter a extensão do arquivo"),
+    ERR0018("MULTIPART_FILE_ERROR", "A imagem é obrigatória"),
 
 }

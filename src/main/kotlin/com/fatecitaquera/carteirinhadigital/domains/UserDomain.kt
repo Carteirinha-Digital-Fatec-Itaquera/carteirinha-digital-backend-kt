@@ -15,7 +15,7 @@ open class UserDomain(
 
     override fun getAuthorities(): Collection<GrantedAuthority> =
         if (role == UserRoleEnum.SECRETARY)
-            listOf(SimpleGrantedAuthority("ROLE_SECRETARY"), SimpleGrantedAuthority("ROLE_STUDENT"))
+            listOf(SimpleGrantedAuthority("ROLE_SECRETARY"))
         else
             listOf(SimpleGrantedAuthority("ROLE_STUDENT"))
 

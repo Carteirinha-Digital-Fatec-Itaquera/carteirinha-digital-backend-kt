@@ -22,6 +22,7 @@ data class CodeDTO(
         message = "CPF deve estar no formato 000.000.000-00"
     )
     val cpf: String?,
+
     @field:NotBlank(message = "O campo código é obrigatório")
     val code:String?
 
@@ -34,8 +35,10 @@ data class PasswordDTO(
         message = "CPF deve estar no formato 000.000.000-00"
     )
     val cpf: String?,
+
     @field:NotBlank(message = "O campo código é obrigatório")
     val code:String?,
+
     @field:NotNull(message = "O campo senha é obrigatório")
     @field:Size(min = 8, max = 50, message = "O campo senha deve ter entre 8  e 50 caracteres")
     val password: String?

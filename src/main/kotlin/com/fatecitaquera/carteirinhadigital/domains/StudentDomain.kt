@@ -20,4 +20,6 @@ class StudentDomain(
     var photo: String? = "",
     var birthDate: LocalDate = LocalDate.MIN,
     var dueDate: LocalDate = LocalDate.MIN,
+    var photoApproved: Boolean = false,
+    var requestPending: Boolean = false
 ): UserDomain(id, name, email, password ?: "", role)

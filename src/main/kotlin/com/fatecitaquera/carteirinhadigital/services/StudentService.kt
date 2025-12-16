@@ -2,31 +2,47 @@ package com.fatecitaquera.carteirinhadigital.services
 
 import com.fatecitaquera.carteirinhadigital.domains.StudentDomain
 import com.fatecitaquera.carteirinhadigital.exceptions.DuplicateResourceException
+import com.fatecitaquera.carteirinhadigital.exceptions.InvalidArgumentsException
 import com.fatecitaquera.carteirinhadigital.exceptions.ResourceNotFoundException
 import com.fatecitaquera.carteirinhadigital.exceptions.enums.RuntimeErrorEnum
 import com.fatecitaquera.carteirinhadigital.mappers.StudentMapper
 import com.fatecitaquera.carteirinhadigital.repositories.RecoveryPasswordStudentRepository
 import com.fatecitaquera.carteirinhadigital.repositories.StudentRepository
 import org.springframework.stereotype.Service
+import org.springframework.web.multipart.MultipartFile
 
 @Service
 class StudentService(
     private val repository: StudentRepository,
     private val studentMapper: StudentMapper,
+    private val uploadService: UploadService,
     private val recoveryPasswordStudentRepository: RecoveryPasswordStudentRepository,
 ) {
 
-    fun findAllByQuery(query: String): List<StudentDomain> =
-        studentMapper.listEntityToListDomain(
+    fun findAllByQuery(query: String): List<StudentDomain> {
+        val students = studentMapper.listEntityToListDomain(
             repository.findAllByNameContainingOrCpfContainingOrRgContainingOrEmailContainingOrCourseContainingOrPeriodContainingOrStatusContainingOrRaContainingAllIgnoreCase(
                 query, query, query, query, query, query, query, query
             )
         )
 
-    fun findById(id: String): StudentDomain =
-        studentMapper.toDomain(repository.findById(id).orElseThrow {
+        return students.map { student ->
+            if (!student.photoApproved) {
+                student.photo = ""
+            }
+            student
+        }
+    }
+
+    fun findById(id: String): StudentDomain {
+        val student = studentMapper.toDomain(repository.findById(id).orElseThrow {
             ResourceNotFoundException(RuntimeErrorEnum.ERR0001)
         })
+        if (!student.photoApproved) {
+            student.photo = ""
+        }
+        return student
+    }
 
     fun create(student: StudentDomain) {
         student.id = null
@@ -41,6 +57,31 @@ class StudentService(
             studentMapper.toEntity(student)
         }
         repository.saveAll(studentEntities)
+    }
+
+    fun uploadPhotoAndLinkWithStudent(id: String, file: MultipartFile?) {
+        val studentToUpdate = studentMapper.toDomain(repository.findById(id).orElseThrow {
+            ResourceNotFoundException(RuntimeErrorEnum.ERR0001)
+        })
+
+        uploadService.checkIfMultipartFileIsNull( file )
+
+        studentToUpdate.photo = uploadService.uploadImage( file!! )
+        studentToUpdate.photoApproved = false
+        studentToUpdate.requestPending = true
+
+        repository.save(studentMapper.toEntity(studentToUpdate))
+    }
+
+    fun approvePhoto(id: String, approved: Boolean) {
+        val studentToUpdate = studentMapper.toDomain(repository.findById(id).orElseThrow {
+            ResourceNotFoundException(RuntimeErrorEnum.ERR0001)
+        })
+
+        studentToUpdate.photoApproved = approved
+        studentToUpdate.requestPending = false
+
+        repository.save(studentMapper.toEntity(studentToUpdate))
     }
 
     fun update(id: String, studentWithNewData: StudentDomain) {
