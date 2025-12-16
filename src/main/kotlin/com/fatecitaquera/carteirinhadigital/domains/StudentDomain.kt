@@ -18,8 +18,8 @@ class StudentDomain(
     var rg: String = "",
     var qrcode: String? = "",
     var photo: String? = "",
+    var photoForAnalysis: String? = "",
     var birthDate: LocalDate = LocalDate.MIN,
     var dueDate: LocalDate = LocalDate.MIN,
-    var photoApproved: Boolean = false,
     var requestPending: Boolean = false
 ): UserDomain(id, name, email, password ?: "", role)

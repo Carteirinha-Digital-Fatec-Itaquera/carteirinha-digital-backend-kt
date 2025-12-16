@@ -28,8 +28,8 @@ class StudentMapper {
             birthDate = student.birthDate,
             dueDate = student.dueDate,
             password = student.password,
-            photoApproved = student.photoApproved,
-            requestPending = student.requestPending
+            requestPending = student.requestPending,
+            photoForAnalysis = student.photoForAnalysis
         )
 
     fun toDomain(student: StudentDTO): StudentDomain =
@@ -48,8 +48,8 @@ class StudentMapper {
             password = null,
             qrcode = null,
             photo = null,
-            photoApproved = false,
-            requestPending = false
+            requestPending = false,
+            photoForAnalysis = null
         )
 
     fun toDomain(student: StudentEntity): StudentDomain =
@@ -70,8 +70,8 @@ class StudentMapper {
             dueDate = student.dueDate,
             password = student.password,
             role = student.role,
-            photoApproved = student.photoApproved,
-            requestPending = student.requestPending
+            requestPending = student.requestPending,
+            photoForAnalysis = student.photoForAnalysis
         )
 
     fun toDTO(student: StudentDomain): ViewStudentDTO =
@@ -90,7 +90,8 @@ class StudentMapper {
             photo = student.photo ?: "",
             birthDate = student.birthDate,
             dueDate = student.dueDate,
-            requestPending = student.requestPending
+            requestPending = student.requestPending,
+            photoForAnalysis = student.photoForAnalysis
         )
 
     fun listEntityToListDomain(students: List<StudentEntity>): List<StudentDomain> =

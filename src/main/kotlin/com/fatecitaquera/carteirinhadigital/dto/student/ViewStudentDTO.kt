@@ -17,5 +17,6 @@ data class ViewStudentDTO(
     val photo: String,
     val birthDate: LocalDate,
     val dueDate: LocalDate,
-    val requestPending: Boolean
+    val requestPending: Boolean,
+    val photoForAnalysis: String? = ""
 )

@@ -61,9 +61,9 @@ class StudentEntity(
     @Column(name = "papel", nullable = false)
     val role: UserRoleEnum = UserRoleEnum.STUDENT,
 
-    @Column(name = "photo_aprovada")
-    val photoApproved: Boolean,
-
     @Column(name = "solicitacao_pendente")
-    val requestPending: Boolean
+    val requestPending: Boolean,
+
+    @Column(name = "imagem_para_analise")
+    val photoForAnalysis: String?
 )

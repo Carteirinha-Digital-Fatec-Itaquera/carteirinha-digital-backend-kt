@@ -19,30 +19,18 @@ class StudentService(
     private val recoveryPasswordStudentRepository: RecoveryPasswordStudentRepository,
 ) {
 
-    fun findAllByQuery(query: String): List<StudentDomain> {
-        val students = studentMapper.listEntityToListDomain(
+    fun findAllByQuery(query: String): List<StudentDomain> =
+        studentMapper.listEntityToListDomain(
             repository.findAllByNameContainingOrCpfContainingOrRgContainingOrEmailContainingOrCourseContainingOrPeriodContainingOrStatusContainingOrRaContainingAllIgnoreCase(
                 query, query, query, query, query, query, query, query
             )
         )
 
-        return students.map { student ->
-            if (!student.photoApproved) {
-                student.photo = ""
-            }
-            student
-        }
-    }
 
-    fun findById(id: String): StudentDomain {
-        val student = studentMapper.toDomain(repository.findById(id).orElseThrow {
+    fun findById(id: String): StudentDomain =
+        studentMapper.toDomain(repository.findById(id).orElseThrow {
             ResourceNotFoundException(RuntimeErrorEnum.ERR0001)
         })
-        if (!student.photoApproved) {
-            student.photo = ""
-        }
-        return student
-    }
 
     fun create(student: StudentDomain) {
         student.id = null
@@ -66,8 +54,7 @@ class StudentService(
 
         uploadService.checkIfMultipartFileIsNull( file )
 
-        studentToUpdate.photo = uploadService.uploadImage( file!! )
-        studentToUpdate.photoApproved = false
+        studentToUpdate.photoForAnalysis = uploadService.uploadImage( file!! )
         studentToUpdate.requestPending = true
 
         repository.save(studentMapper.toEntity(studentToUpdate))
@@ -78,8 +65,15 @@ class StudentService(
             ResourceNotFoundException(RuntimeErrorEnum.ERR0001)
         })
 
-        studentToUpdate.photoApproved = approved
-        studentToUpdate.requestPending = false
+        if (approved) {
+            studentToUpdate.photo = studentToUpdate.photoForAnalysis
+            studentToUpdate.photoForAnalysis = null
+            studentToUpdate.requestPending = false
+        } else {
+            studentToUpdate.photo = null
+            studentToUpdate.photoForAnalysis = null
+            studentToUpdate.requestPending = false
+        }
 
         repository.save(studentMapper.toEntity(studentToUpdate))
     }
