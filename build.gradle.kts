@@ -55,6 +55,10 @@ dependencies {
 
 	// AWS/SUPABASE
 	implementation("software.amazon.awssdk:s3:2.25.63")
+
+	// Thymeleaf
+	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+	implementation("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect")
 }
 
 kotlin {

@@ -1,6 +1,5 @@
 package com.fatecitaquera.carteirinhadigital.services
 
-import com.fatecitaquera.carteirinhadigital.exceptions.InternalErrorException
 import com.fatecitaquera.carteirinhadigital.exceptions.InvalidArgumentsException
 import com.fatecitaquera.carteirinhadigital.exceptions.UnsupportedMediaTypeException
 import com.fatecitaquera.carteirinhadigital.exceptions.enums.RuntimeErrorEnum

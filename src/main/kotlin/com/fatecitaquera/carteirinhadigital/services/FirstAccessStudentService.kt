@@ -8,10 +8,12 @@ import com.fatecitaquera.carteirinhadigital.mappers.FirstAccessPersistenceMapper
 import com.fatecitaquera.carteirinhadigital.mappers.StudentMapper
 import com.fatecitaquera.carteirinhadigital.repositories.FirstAccessStudentRepository
 import com.fatecitaquera.carteirinhadigital.repositories.StudentRepository
-import com.fatecitaquera.carteirinhadigital.utils.emailContentFirstAccess
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
+import org.thymeleaf.context.Context
+import org.thymeleaf.spring6.SpringTemplateEngine
 import java.time.LocalDateTime
+import java.time.Year
 
 @Service
 class FirstAccessStudentService(
@@ -19,7 +21,8 @@ class FirstAccessStudentService(
     private val studentMapper: StudentMapper,
     private val firstAccessStudentRepository: FirstAccessStudentRepository,
     private val firstAccessMapper: FirstAccessPersistenceMapper,
-    private val emailService: EmailService
+    private val emailService: EmailService,
+    private val templateEngine: SpringTemplateEngine
 ) {
     fun getCode(cpf: String): String {
         val token =  String.format("%06d", (0..999999).random())
@@ -48,7 +51,12 @@ class FirstAccessStudentService(
             }
         )
         if (email != null) {
-            emailService.sendEmail(email, "Primeiro acesso", emailContentFirstAccess(token))
+            val context = Context()
+            context.setVariable("token", token)
+            context.setVariable("year", Year.now())
+
+            val htmlContent = templateEngine.process("first-access", context)
+            emailService.sendEmail(email, "Primeiro acesso", htmlContent)
         }
         return email ?: ""
     }

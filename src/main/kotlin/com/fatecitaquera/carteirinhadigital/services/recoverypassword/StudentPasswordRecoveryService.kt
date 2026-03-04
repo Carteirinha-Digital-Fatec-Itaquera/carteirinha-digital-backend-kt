@@ -9,10 +9,12 @@ import com.fatecitaquera.carteirinhadigital.repositories.StudentRepository
 import com.fatecitaquera.carteirinhadigital.services.EmailService
 import com.fatecitaquera.carteirinhadigital.repositories.RecoveryPasswordStudentRepository
 import com.fatecitaquera.carteirinhadigital.mappers.RecoveryPasswordPersistenceMapper
-import com.fatecitaquera.carteirinhadigital.utils.emailContentRecoveryPassword
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
+import org.thymeleaf.context.Context
+import org.thymeleaf.spring6.SpringTemplateEngine
 import java.time.LocalDateTime
+import java.time.Year
 
 @Service
 class StudentPasswordRecoveryService(
@@ -20,7 +22,8 @@ class StudentPasswordRecoveryService(
     private val studentMapper: StudentMapper,
     private val recoveryPasswordRepository: RecoveryPasswordStudentRepository,
     private val recoveryPasswordMapper: RecoveryPasswordPersistenceMapper,
-    private val emailService: EmailService
+    private val emailService: EmailService,
+    private val templateEngine: SpringTemplateEngine
 ) {
     fun getCode(email: String) {
         val token =  String.format("%06d", (0..999999).random())
@@ -43,7 +46,14 @@ class StudentPasswordRecoveryService(
                 }
             }
         )
-        emailService.sendEmail(email, "Recuperação de Senha", emailContentRecoveryPassword(token))
+
+        val context = Context()
+        context.setVariable("token", token)
+        context.setVariable("year", Year.now())
+
+        val htmlContent = templateEngine.process("first-access", context)
+
+        emailService.sendEmail(email, "Recuperação de Senha", htmlContent)
     }
 
     fun changePassword(email: String, token: String, newPassword: String) {

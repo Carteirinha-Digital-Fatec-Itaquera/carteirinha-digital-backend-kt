@@ -7,7 +7,7 @@ import org.springframework.mail.SimpleMailMessage
 @Configuration
 class MailConfig {
     @Bean
-    fun mailMessage(): SimpleMailMessage{
+    fun mailMessage(): SimpleMailMessage {
         val message = SimpleMailMessage()
         return message
     }
