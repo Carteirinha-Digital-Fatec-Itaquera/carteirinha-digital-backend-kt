@@ -1,0 +1,37 @@
+# Postgres Driver
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+# Datasource Postgres
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+# Mail config
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          updatessl:
+            trust: smtp.gmail.com
+# Spring Security Keys
+jwt:
+  secret: ${JWT_SECRET}
+# S3/Supabase Configuration
+supabase:
+  s3:
+    endpoint-public: ${SB_ENDPOINT_PUBLIC}
+    endpoint-s3: ${SB_ENDPOINT_S3}
+    region: ${SB_REGION}
+    access-key: ${SB_ACCESS_KEY}
+    secret-key: ${SB_SECRET_KEY}
+    bucket: ${SB_BUCKET}
+
+

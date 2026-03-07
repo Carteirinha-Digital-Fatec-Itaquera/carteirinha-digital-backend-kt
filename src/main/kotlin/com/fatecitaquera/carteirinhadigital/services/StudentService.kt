@@ -65,15 +65,11 @@ class StudentService(
             ResourceNotFoundException(RuntimeErrorEnum.ERR0001)
         })
 
-        if (approved) {
+        if (approved)
             studentToUpdate.photo = studentToUpdate.photoForAnalysis
-            studentToUpdate.photoForAnalysis = null
-            studentToUpdate.requestPending = false
-        } else {
-            studentToUpdate.photo = null
-            studentToUpdate.photoForAnalysis = null
-            studentToUpdate.requestPending = false
-        }
+
+        studentToUpdate.photoForAnalysis = null
+        studentToUpdate.requestPending = false
 
         repository.save(studentMapper.toEntity(studentToUpdate))
     }

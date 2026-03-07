@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: carteirinhadigital
+  profiles:
+    active: dev
+# JPA configuration
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+# File size configuration
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB

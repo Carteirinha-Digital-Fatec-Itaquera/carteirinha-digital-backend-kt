@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/secretarias")
 class SecretaryController (
-    val service: SecretaryService,
-    val mapper: SecretaryMapper
+    private val service: SecretaryService,
+    private val mapper: SecretaryMapper
 ) {
     @PostMapping("/criar")
     fun signup(@Valid @RequestBody student: CreateSecretaryDTO): ResponseEntity<Void> {
