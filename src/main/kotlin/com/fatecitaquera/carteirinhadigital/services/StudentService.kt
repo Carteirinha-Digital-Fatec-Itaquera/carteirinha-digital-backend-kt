@@ -2,7 +2,6 @@ package com.fatecitaquera.carteirinhadigital.services
 
 import com.fatecitaquera.carteirinhadigital.domains.StudentDomain
 import com.fatecitaquera.carteirinhadigital.exceptions.DuplicateResourceException
-import com.fatecitaquera.carteirinhadigital.exceptions.InvalidArgumentsException
 import com.fatecitaquera.carteirinhadigital.exceptions.ResourceNotFoundException
 import com.fatecitaquera.carteirinhadigital.exceptions.enums.RuntimeErrorEnum
 import com.fatecitaquera.carteirinhadigital.mappers.StudentMapper

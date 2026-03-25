@@ -2,15 +2,17 @@ package com.fatecitaquera.carteirinhadigital.controllers
 
 import com.fatecitaquera.carteirinhadigital.domains.UserDomain
 import com.fatecitaquera.carteirinhadigital.domains.enums.UserRoleEnum
-import com.fatecitaquera.carteirinhadigital.services.security.TokenService
-import com.fatecitaquera.carteirinhadigital.services.security.UserDetailsService
 import com.fatecitaquera.carteirinhadigital.dto.AuthDTO
 import com.fatecitaquera.carteirinhadigital.dto.TokenDTO
-import jakarta.validation.Valid
+import com.fatecitaquera.carteirinhadigital.services.security.TokenService
+import com.fatecitaquera.carteirinhadigital.services.security.UserDetailsService
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import java.util.*
 
 @RestController

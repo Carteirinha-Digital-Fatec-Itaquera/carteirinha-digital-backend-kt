@@ -2,13 +2,7 @@ package com.fatecitaquera.carteirinhadigital.controllers
 
 import com.fatecitaquera.carteirinhadigital.dto.ErrorFieldDTO
 import com.fatecitaquera.carteirinhadigital.dto.ErrorMessageDTO
-import com.fatecitaquera.carteirinhadigital.exceptions.AuthenticationFailedException
-import com.fatecitaquera.carteirinhadigital.exceptions.DuplicateResourceException
-import com.fatecitaquera.carteirinhadigital.exceptions.InternalErrorException
-import com.fatecitaquera.carteirinhadigital.exceptions.InvalidArgumentsException
-import com.fatecitaquera.carteirinhadigital.exceptions.OperationNotAllowedException
-import com.fatecitaquera.carteirinhadigital.exceptions.ResourceNotFoundException
-import com.fatecitaquera.carteirinhadigital.exceptions.UnsupportedMediaTypeException
+import com.fatecitaquera.carteirinhadigital.exceptions.*
 import com.fatecitaquera.carteirinhadigital.exceptions.enums.RuntimeErrorEnum
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus

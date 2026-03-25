@@ -3,19 +3,14 @@ package com.fatecitaquera.carteirinhadigital.controllers
 import com.fatecitaquera.carteirinhadigital.dto.CodeDTO
 import com.fatecitaquera.carteirinhadigital.dto.CpfDTO
 import com.fatecitaquera.carteirinhadigital.dto.EmailDTO
+import com.fatecitaquera.carteirinhadigital.dto.PasswordDTO
 import com.fatecitaquera.carteirinhadigital.exceptions.OperationNotAllowedException
 import com.fatecitaquera.carteirinhadigital.exceptions.enums.RuntimeErrorEnum
-import com.fatecitaquera.carteirinhadigital.services.recoverypassword.StudentPasswordRecoveryService
-import com.fatecitaquera.carteirinhadigital.dto.PasswordDTO
 import com.fatecitaquera.carteirinhadigital.services.FirstAccessStudentService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PatchMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/primeiro-acesso")

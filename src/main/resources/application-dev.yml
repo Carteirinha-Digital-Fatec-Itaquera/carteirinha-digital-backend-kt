@@ -1,6 +1,6 @@
-# Postgres Driver
 spring:
   datasource:
+# Postgres Driver
     driver-class-name: org.postgresql.Driver
 # Datasource Postgres
     url: ${DB_URL}
@@ -24,7 +24,7 @@ spring:
 # Spring Security Keys
 jwt:
   secret: ${JWT_SECRET}
-# S3/Supabase Configuration
+# S3/Supabase Storage Configuration
 supabase:
   s3:
     endpoint-public: ${SB_ENDPOINT_PUBLIC}
@@ -33,5 +33,3 @@ supabase:
     access-key: ${SB_ACCESS_KEY}
     secret-key: ${SB_SECRET_KEY}
     bucket: ${SB_BUCKET}
-
-

@@ -4,10 +4,10 @@ import com.fatecitaquera.carteirinhadigital.domains.RecoveryPasswordSecretaryDom
 import com.fatecitaquera.carteirinhadigital.exceptions.OperationNotAllowedException
 import com.fatecitaquera.carteirinhadigital.exceptions.ResourceNotFoundException
 import com.fatecitaquera.carteirinhadigital.exceptions.enums.RuntimeErrorEnum
-import com.fatecitaquera.carteirinhadigital.mappers.SecretaryMapper
-import com.fatecitaquera.carteirinhadigital.repositories.SecretaryRepository
 import com.fatecitaquera.carteirinhadigital.mappers.RecoveryPasswordPersistenceMapper
+import com.fatecitaquera.carteirinhadigital.mappers.SecretaryMapper
 import com.fatecitaquera.carteirinhadigital.repositories.RecoveryPasswordSecretaryRepository
+import com.fatecitaquera.carteirinhadigital.repositories.SecretaryRepository
 import com.fatecitaquera.carteirinhadigital.services.EmailService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service

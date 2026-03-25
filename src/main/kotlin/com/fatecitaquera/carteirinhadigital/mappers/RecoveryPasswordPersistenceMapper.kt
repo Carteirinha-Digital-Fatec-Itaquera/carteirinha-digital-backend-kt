@@ -1,9 +1,9 @@
 package com.fatecitaquera.carteirinhadigital.mappers
 
-import com.fatecitaquera.carteirinhadigital.entities.RecoveryPasswordSecretaryEntity
-import com.fatecitaquera.carteirinhadigital.entities.RecoveryPasswordStudentEntity
 import com.fatecitaquera.carteirinhadigital.domains.RecoveryPasswordSecretaryDomain
 import com.fatecitaquera.carteirinhadigital.domains.RecoveryPasswordStudentDomain
+import com.fatecitaquera.carteirinhadigital.entities.RecoveryPasswordSecretaryEntity
+import com.fatecitaquera.carteirinhadigital.entities.RecoveryPasswordStudentEntity
 import org.springframework.stereotype.Component
 
 @Component
